@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Sommet {
 	private String nomStation;
-	private ArrayList<Arc> trajets;
+	private ArrayList<Arc> arcs;
 	
 	public Sommet() {
 		super();
@@ -23,16 +23,16 @@ public class Sommet {
 	}
 
 	public ArrayList<Arc> getTrajets() {
-		return trajets;
+		return arcs;
 	}
 
 	public void setTrajets(ArrayList<Arc> trajets) {
-		this.trajets = trajets;
+		this.arcs = trajets;
 	}
 	
-	public void addTrajet(Arc trajet) {
-		if(trajet.getStationDepart().getNomStation().equals(this.nomStation))
-			trajets.add(trajet);
+	public void addTrajet(Arc arc) {
+		if(arc.getStationDepart().getNomStation().equals(this.nomStation))
+			arcs.add(arc);
 		else
 			System.err.println("Station de Depart non valide !!!!!");
 	}
