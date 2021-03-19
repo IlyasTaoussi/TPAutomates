@@ -41,7 +41,7 @@ public class Sommet {
 	public ArrayList<Arc> getTrajet(Sommet arrivee) {
 		ArrayList<Arc> listArcs = new ArrayList<>();
 		for(Arc a : arcs) {
-			if(a.getStationArrivée().getNomStation().equals(arrivee.getNomStation()))
+			if(a.getStationArrivee().getNomStation().equals(arrivee.getNomStation()))
 					listArcs.add(a);
 		}
 		return listArcs;
