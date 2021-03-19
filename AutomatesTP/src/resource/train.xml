@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<line>1
+<line id="1">
 	<junction>
 		<start-station>Limo</start-station>
 		<arrival-station>Arly</arrival-station>
@@ -25,7 +25,7 @@
 		<arrival-hour>1633</arrival-hour>
 	</junction>
 </line>
-<line>2
+<line id="2">
 	<junction>
 		<start-station>Arly</start-station>
 		<arrival-station>Singha</arrival-station>
