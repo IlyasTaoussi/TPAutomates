@@ -1,7 +1,5 @@
 package process;
 
-import java.io.File;
-import java.util.ArrayList;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -13,26 +11,13 @@ import org.xml.sax.helpers.DefaultHandler;
 
 public class Lecture {
 	private String path;
-	private SAXParser lecteurXML;
+	private DefaultHandler handlerXML;
 	//txt reader
 	
 	public Lecture(String path) {
 		super();
 		this.path = path;
-	}
-	
-	public void lectureTram() {
-		File tram = new File(path);
-		
-		try {
-	        //Obtenir la configuration du sax parser
-	        SAXParserFactory spfactory = SAXParserFactory.newInstance();
-	        //Obtenir une instance de l'objet parser
-	        SAXParser saxParser = spfactory.newSAXParser();
-	 
-	        /*les trois méthodes sont déclarées dans le
-	         corp du DefaltHandler*/
-	        DefaultHandler handler = new DefaultHandler() {
+		handlerXML = new DefaultHandler() {
 	 
 	        boolean line = false;
 	        boolean junction = false;
@@ -101,35 +86,53 @@ public class Lecture {
 
 	        /*imprime les données stockées entre '<' et '>' */
 	        public void characters(char ch[], int start, int length) throws SAXException {
-	 
-	           if (startStation) {
+	        	if (line) {
+		             System.out.println("Line : " + 
+		                    new String(ch, start, length));
+		             line = false;
+	        	}
+		   
+	        	if (junction) {
+	             System.out.println("Junction : " +
+	                     new String(ch, start, length));
+		             junction = false;
+	        	}
+	        	
+	        	if (startStation) {
 	             System.out.println("Start Station : " + 
 	                    new String(ch, start, length));
 	             line = false;
-	           }
+	           	}
 	   
-	           if (arrivalStation) {
+	           	if (arrivalStation) {
 	             System.out.println("Arrivée : " +
 	                     new String(ch, start, length));
 	             arrivalStation = false;
-	           }
+	           	}
 	 
-	           if (startHour) {
+	           	if (startHour) {
 	             System.out.println("heure Depart : " + 
 	                     new String(ch, start, length));
 	             startHour = false;
-	           }
+	           	}
 	 
-	           if (arrivalHour) {
+	           	if (arrivalHour) {
 	             System.out.println("heures Arrivée : " + 
 	                     new String(ch, start, length));
 	             arrivalHour = false;
-	           } 
+	           	} 
 	        }
 	 
 	        };
-	 
-	       saxParser.parse("exemple.xml", handler);
+	}
+	
+	public void lectureTram() {
+		
+		try {
+	        SAXParserFactory spfactory = SAXParserFactory.newInstance();
+	        SAXParser saxParser = spfactory.newSAXParser();
+	        
+	        saxParser.parse(path, handlerXML);
 	 
 	     } catch (Exception e) {
 	       e.printStackTrace();
