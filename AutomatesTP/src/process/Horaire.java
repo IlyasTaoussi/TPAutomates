@@ -3,9 +3,9 @@ package process;
 public class Horaire {
 	private Heure heureDepart;
 	private Heure heureArrivee;
-	private Heure duree;
+	private int duree;
 	
-	public Horaire(Heure heureDepart, Heure heureArrivee, Heure duree) {
+	public Horaire(Heure heureDepart, Heure heureArrivee, int duree) {
 		super();
 		this.heureDepart = heureDepart;
 		this.heureArrivee = heureArrivee;
@@ -24,10 +24,10 @@ public class Horaire {
 	public void setHeureArrivee(Heure heureArrivee) {
 		this.heureArrivee = heureArrivee;
 	}
-	public Heure getDuree() {
+	public int getDuree() {
 		return duree;
 	}
-	public void setDuree(Heure duree) {
+	public void setDuree(int duree) {
 		this.duree = duree;
 	}
 	
