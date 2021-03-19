@@ -1,8 +1,5 @@
 package process;
 
-import java.io.File;
-import java.util.ArrayList;
-
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
@@ -10,20 +7,10 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+public class Main {
 
-public class Lecture {
-	private String path;
-	private SAXParser lecteurXML;
-	//txt reader
-	
-	public Lecture(String path) {
-		super();
-		this.path = path;
-	}
-	
-	public void lectureTram() {
-		File tram = new File(path);
-		
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
 		try {
 	        //Obtenir la configuration du sax parser
 	        SAXParserFactory spfactory = SAXParserFactory.newInstance();
@@ -101,18 +88,28 @@ public class Lecture {
 
 	        /*imprime les données stockées entre '<' et '>' */
 	        public void characters(char ch[], int start, int length) throws SAXException {
-	 
-	           if (startStation) {
-	             System.out.println("Start Station : " + 
-	                    new String(ch, start, length));
-	             line = false;
-	           }
-	   
-	           if (arrivalStation) {
-	             System.out.println("Arrivée : " +
+	        	if (line) {
+		             System.out.println("Line : " + 
+		                    new String(ch, start, length));
+		             line = false;
+	        	}
+		   
+	        	if (junction) {
+	             System.out.println("Junction : " +
 	                     new String(ch, start, length));
-	             arrivalStation = false;
-	           }
+		             junction = false;
+	        	}
+	        	if (startStation) {
+	        		System.out.println("Start Station : " + 
+	            		 new String(ch, start, length));
+	        		line = false;
+	        	}
+	   
+	        	if (arrivalStation) {
+	        		System.out.println("Arrivée : " +
+	                     new String(ch, start, length));
+	        		arrivalStation = false;
+	        	}
 	 
 	           if (startHour) {
 	             System.out.println("heure Depart : " + 
@@ -122,17 +119,18 @@ public class Lecture {
 	 
 	           if (arrivalHour) {
 	             System.out.println("heures Arrivée : " + 
-	                     new String(ch, start, length));
+	                     new String(ch, start, length)); 
 	             arrivalHour = false;
+	             System.out.println(" ");
 	           } 
 	        }
 	 
 	        };
 	 
-	       saxParser.parse("exemple.xml", handler);
+	       saxParser.parse("src/resource/train.xml", handler);
 	 
-	     } catch (Exception e) {
-	       e.printStackTrace();
+	     } catch (Exception e) {System.err.println("Il Faut Vraiemnt trouver une solution pour le xml goddamnit");
 	     }
-	   }
 	}
+
+}
