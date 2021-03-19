@@ -12,6 +12,7 @@ public class Sommet {
 	public Sommet(String nomStation) {
 		super();
 		this.nomStation = nomStation;
+		arcs = new ArrayList<>();
 	}
 
 	public String getNomStation() {
@@ -37,5 +38,12 @@ public class Sommet {
 			System.err.println("Station de Depart non valide !!!!!");
 	}
 	
-	
+	public ArrayList<Arc> getTrajet(Sommet arrivee) {
+		ArrayList<Arc> listArcs = new ArrayList<>();
+		for(Arc a : arcs) {
+			if(a.getStationArrivée().getNomStation().equals(arrivee.getNomStation()))
+					listArcs.add(a);
+		}
+		return listArcs;
+	}
 }
