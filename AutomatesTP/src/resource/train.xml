@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<line id="1">
+<train>
+<line >1
 	<junction>
 		<start-station>Limo</start-station>
 		<arrival-station>Arly</arrival-station>
@@ -25,7 +26,7 @@
 		<arrival-hour>1633</arrival-hour>
 	</junction>
 </line>
-<line id="2">
+<line>2
 	<junction>
 		<start-station>Arly</start-station>
 		<arrival-station>Singha</arrival-station>
@@ -101,3 +102,4 @@
 		<arrival-hour>1652</arrival-hour>
 	</junction>
 </line>
+</train>
