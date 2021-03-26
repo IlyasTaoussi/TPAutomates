@@ -132,15 +132,17 @@ public class Main {
 	                     new String(ch, start, length));
 		             junction = false;
 	        	}
+	        	
 	        	if (startStation) {
 	        		System.out.println("Start Station : " + 
 	            		 new String(ch, start, length));
 	        		line = false;
 	        	}
-	   
+	        	
 	        	if (arrivalStation) {
 	        		System.out.println("Arrivée : " +
 	                     new String(ch, start, length));
+	        		
 	        		arrivalStation = false;
 	        	}
 	 
