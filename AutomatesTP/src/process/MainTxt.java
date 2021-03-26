@@ -11,7 +11,7 @@ public class MainTxt {
 	    String ligne;
 
 	    try{
-	    	lecteurAvecBuffer = new BufferedReader(new FileReader("src/resource/metro.txt"));
+	    	lecteurAvecBuffer = new BufferedReader(new FileReader("src/resource/InterCites.txt"));
 	    	ligne = lecteurAvecBuffer.readLine();
 	    		if(ligne.startsWith("% métro")) {
 	    			do{
@@ -61,5 +61,7 @@ public class MainTxt {
 	      }catch(Exception e){
 	    	e.printStackTrace();
 	      }
+		/*LectureTXT metro = new LectureTXT("src/resource/metro.txt", Transport.METRO);
+		*/
 	  }
 }
