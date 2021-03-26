@@ -1,4 +1,4 @@
-% Car Inter-CitÃ©
+% Car Inter-Cité
 % tables horaires
 %
 % liste des liaisons :
