@@ -142,9 +142,8 @@ public class LectureXML {
 		           		horaireArrivee = new String(ch, start, length);
 		           		System.out.println("heures Arrivée : " + horaireArrivee);
 		           		arrivalHour = false;
-		           		Sommet nomStation = new Sommet(depart);
 		           	} 
-		           	
+		           	Sommet nomStation = new Sommet(depart);
 		        }
 		 
 		    };
