@@ -9,12 +9,12 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 
-public class Lecture {
+public class LectureXML {
 	private String path;
 	private DefaultHandler handlerXML;
 	//txt reader
 	
-	public Lecture(String path, String exploitant) {
+	public LectureXML(String path, String exploitant) {
 		super();
 		this.path = path;
 		this.setDefaultHandler(exploitant);
