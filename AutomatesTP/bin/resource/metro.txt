@@ -1,9 +1,9 @@
-% mÃ©tro
+% métro
 %stations
 Gare Avlon Syen Ecole Parc 
 
 %liaisons
-depart arrivee duree
+%depart arrivee duree
 Gare Avlon 15
 Avlon Gare 15
 Gare Parc 10
@@ -12,10 +12,12 @@ Gare Ecole 6
 Ecole Syen 13
 Syen Gare 17
 
-%Ã  partir de
+%à partir de
 0700
 %toutes les x minutes
 10
-%dernier dÃ©parts de Gare
+%dernier départs de Gare
 2330
+
+
 
