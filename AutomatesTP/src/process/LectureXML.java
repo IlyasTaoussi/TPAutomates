@@ -14,7 +14,7 @@ public class LectureXML {
 	private DefaultHandler handlerXML;
 	//txt reader
 	
-	public LectureXML(String path, String exploitant) {
+	public LectureXML(String path, Transport exploitant) {
 		super();
 		this.path = path;
 		this.setDefaultHandler(exploitant);
@@ -33,8 +33,8 @@ public class LectureXML {
 	     }
 	   }
 	
-	public void setDefaultHandler(String exploitant) {
-		if(exploitant.equalsIgnoreCase("train")) {
+	public void setDefaultHandler(Transport exploitant) {
+		if(exploitant.equals(Transport.TRAIN)) {
 			handlerXML = new DefaultHandler(){
 				 
 		        boolean line = false;
@@ -144,7 +144,7 @@ public class LectureXML {
 		    };
 		}
 		// si on trouve tram
-		else { if(exploitant.equalsIgnoreCase("reseau")) {
+		else if(exploitant.equals(Transport.TRAM)) {
 			handlerXML = new DefaultHandler(){
 				 
 		        boolean stations = false;
@@ -210,7 +210,7 @@ public class LectureXML {
 		        }
 		 
 		    };
-		}
+		
 			
 		}
 	}
