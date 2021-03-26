@@ -143,7 +143,74 @@ public class Lecture {
 		 
 		    };
 		}
-		else {
+		// si on trouve tram
+		else { if(exploitant.equalsIgnoreCase("reseau")) {
+			handlerXML = new DefaultHandler(){
+				 
+		        boolean stations = false;
+		        boolean ligne = false;
+		        boolean heuresPassage = false;
+		        
+		 
+		        /*cette méthode est invoquée à chaque fois que parser rencontre
+		          une balise ouvrante '<' */
+		        public void startElement(String uri, String localName,
+		               String qName,Attributes attributes) throws SAXException{
+		 
+		           if (qName.equalsIgnoreCase("stations")) {
+		             stations = true;
+		           }
+		 
+		           if (qName.equalsIgnoreCase("ligne")) {
+		             ligne = true;
+		           }
+		 
+		           if (qName.equalsIgnoreCase("heures-passage")) {
+		             heuresPassage = true;
+		           }
+		           
+		        }
+		 
+		        /*cette méthode est invoquée à chaque fois que parser rencontre
+		          une balise fermante '>' */
+		        public void endElement(String uri, String localName,String qName) throws SAXException {
+		        	if (qName.equalsIgnoreCase("/stations")) {
+			             stations = true;
+			           }
+			 
+			           if (qName.equalsIgnoreCase("/ligne")) {
+			             ligne = true;
+			           }
+			 
+			           if (qName.equalsIgnoreCase("/heures-passage")) {
+			             heuresPassage = true;
+			           }
+		        }
+
+		        /*imprime les données stockées entre '<' et '>' */
+		        public void characters(char ch[], int start, int length) throws SAXException {
+		        	if (stations) {
+			             System.out.println("Stations : " + 
+			                    new String(ch, start, length));
+			             stations = true;
+		        	}
+			   
+		        	if (ligne) {
+		             System.out.println("Ligne : " + 
+		                    new String(ch, start, length));
+		             ligne = false;
+		           	}
+		        	
+		           	if (heuresPassage) {
+		             System.out.println("Heures de passage : " + 
+		                     new String(ch, start, length));
+		             heuresPassage = false;
+		           	}
+		 
+		        }
+		 
+		    };
+		}
 			
 		}
 	}

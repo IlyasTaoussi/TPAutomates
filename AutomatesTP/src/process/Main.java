@@ -20,19 +20,24 @@ public class Main {
 	        /*les trois méthodes sont déclarées dans le
 	         corp du DefaltHandler*/
 	        DefaultHandler handler = new DefaultHandler() {
-	 
+	        //booléen train
 	        boolean line = false;
 	        boolean junction = false;
 	        boolean startStation = false;
 	        boolean arrivalStation = false;
 	        boolean startHour = false;
 	        boolean arrivalHour = false;
+	        // booléen tram
+	        boolean stations = false;
+	        boolean ligne = false;
+	        boolean heuresPassage = false;
+	        
 	 
 	        /*cette méthode est invoquée à chaque fois que parser rencontre
 	          une balise ouvrante '<' */
 	        public void startElement(String uri, String localName,
 	               String qName,Attributes attributes) throws SAXException{
-	 
+	        	//train
 	           if (qName.equalsIgnoreCase("line")) {
 	             line = true;
 	           }
@@ -56,11 +61,26 @@ public class Main {
 	           if (qName.equalsIgnoreCase("arrival-hour")) {
         	   	arrivalHour = true;
 	           }
+	           //tram
+	           if (qName.equalsIgnoreCase("stations")) {
+		             stations = true;
+		       }
+		 
+		       
+		 
+		       if (qName.equalsIgnoreCase("ligne")) {
+		             ligne = true;
+		       }
+		 
+		       if (qName.equalsIgnoreCase("heures-passage")) {
+		             heuresPassage = true;
+		       }
 	        }
 	 
 	        /*cette méthode est invoquée à chaque fois que parser rencontre
 	          une balise fermante '>' */
 	        public void endElement(String uri, String localName,String qName) throws SAXException {
+	        	//train
 	        	if (qName.equalsIgnoreCase("line")) {
 		             line = false;
 		           }
@@ -84,10 +104,23 @@ public class Main {
 		           if (qName.equalsIgnoreCase("arrival-hour")) {
 	        	   	arrivalHour = false;
 		           }
+		           //tram
+		           if (qName.equalsIgnoreCase("/stations")) {
+			             stations = true;
+			       }
+		           
+			       if (qName.equalsIgnoreCase("/ligne")) {
+			             ligne = true;
+			       }
+			 
+			       if (qName.equalsIgnoreCase("/heures-passage")) {
+			             heuresPassage = true;
+			       }
 	        }
 
 	        /*imprime les données stockées entre '<' et '>' */
 	        public void characters(char ch[], int start, int length) throws SAXException {
+	        	//train
 	        	if (line) {
 		             System.out.println("Line : " + 
 		                    new String(ch, start, length));
@@ -123,11 +156,31 @@ public class Main {
 	             arrivalHour = false;
 	             System.out.println(" ");
 	           } 
+	           //tram
+	           if (stations) {
+		             System.out.println("Stations : " + 
+		                    new String(ch, start, length));
+		             stations = false;
+	        	}
+		   
+	        	if (ligne) {
+	             System.out.println("Ligne : " + 
+	                    new String(ch, start, length));
+	             ligne = false;
+	           	}
+	        	
+	           	if (heuresPassage) {
+	             System.out.println("Heures de passage : " + 
+	                     new String(ch, start, length));
+	             heuresPassage = false;
+	           	}
 	        }
 	 
 	        };
 	 
-	       saxParser.parse("src/resource/train.xml", handler);
+	       saxParser.parse("src/resource/tram.xml", handler);
+	       
+	       
 	 
 	     } catch (Exception e) {System.err.println("Il Faut Vraiemnt trouver une solution pour le xml goddamnit");
 	     }
