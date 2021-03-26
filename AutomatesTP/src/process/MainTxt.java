@@ -4,54 +4,30 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 public class MainTxt {
-
+	// Intercité , il faut eliminer tout l'espace à part un seul pour realiser le split(" ") et parcourir le tableau
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		BufferedReader lecteurAvecBuffer = null;
+	/*	BufferedReader lecteurAvecBuffer = null;
 	    String ligne;
-
+	    
 	    try{
 	    	lecteurAvecBuffer = new BufferedReader(new FileReader("src/resource/InterCites.txt"));
 	    	ligne = lecteurAvecBuffer.readLine();
-	    		if(ligne.startsWith("% métro")) {
-	    			do{
-	    				ligne = lecteurAvecBuffer.readLine();
-	    				if(ligne.startsWith("%stations")) {
-	    					ligne = lecteurAvecBuffer.readLine();
-	    					System.out.println("Stations : " + ligne.split(" "));
-	    				}
-	    				else if(ligne.startsWith("%liaisons")){
-	    					if((ligne = lecteurAvecBuffer.readLine()).startsWith("%depart")) {
-	    						while(!(ligne = lecteurAvecBuffer.readLine()).isEmpty()) {
-	    							System.out.println("ligne : " + ligne);
-	    						}
-	    					}
-	    					else {
-	    						System.err.println("Format Txt non valide !!!!!");
-	    						break;
-	    					}
-	    				}
-	    				else if(ligne.startsWith("%à partir")) {
-	    					ligne = lecteurAvecBuffer.readLine();
-	    					System.out.println("Heure Depart : "+ ligne);
-	    				}
-	    				else if(ligne.startsWith("%toutes")) {
-	    					ligne = lecteurAvecBuffer.readLine();
-	    					System.out.print("Toutes les ");System.err.print(ligne);System.out.println(" minutes");
-	    				}
-	    				else if(ligne.startsWith("%dernier")) {
-	    					ligne = lecteurAvecBuffer.readLine();
-	    					System.out.println("Heure Dernier Depart : " + ligne);
-	    					break;
-	    				}
-	    				else if(ligne.isBlank()) {
+	    		if(ligne.startsWith("% Car")) {
+	    			while(!(ligne = lecteurAvecBuffer.readLine()).startsWith("//")) {
+	    				if(ligne.startsWith("%")) {
 	    					continue;
 	    				}
 	    				else {
-	    					System.err.println("Format Txt non valide !!!!!");
-	    					break;
+	    					String[] det = ligne.replaceAll("\\s+", " ").split(" ");
+		    				System.out.println("Trajet + heure Depart :" + det[0] + " " +  det[1] + " " + det[2]);
 	    				}
-	    			}while(ligne != null);
+	    			}
+	    			System.out.println(" ");
+	    			while((ligne = lecteurAvecBuffer.readLine()) != null){
+	    				String[] det = ligne.replaceAll("\\s+", " ").split(" ");
+	    				System.out.println("Trajet + heure Depart :" + det[0] + " " +  det[1] + " " + det[2]);
+	    			}
 	    		}
 	    		else {
 	    			System.err.println("Format Txt non valide !!!!!");
@@ -60,8 +36,11 @@ public class MainTxt {
 	    	lecteurAvecBuffer.close();
 	      }catch(Exception e){
 	    	e.printStackTrace();
-	      }
-		/*LectureTXT metro = new LectureTXT("src/resource/metro.txt", Transport.METRO);
-		*/
+	      }*/
+		System.err.println("Lecture Metro !!!!");
+		LectureTXT metro = new LectureTXT("src/resource/metro.txt", Transport.METRO);
+		System.err.println("Lecture Car !!!!!");
+		LectureTXT car = new LectureTXT("src/resource/InterCites.txt", Transport.CAR);
+		
 	  }
 }

@@ -59,7 +59,30 @@ public class LectureTXT {
 		    buffer.close();
 		}
 		else if(exploitant.equals(Transport.CAR)) {
-			
+			String ligne;
+	    	buffer = new BufferedReader(new FileReader("src/resource/InterCites.txt"));
+	    	ligne = buffer.readLine();
+	    		if(ligne.startsWith("% Car")) {
+	    			while(!(ligne = buffer.readLine()).startsWith("//")) {
+	    				if(ligne.startsWith("%")) {
+	    					continue;
+	    				}
+	    				else {
+	    					String[] det = ligne.replaceAll("\\s+", " ").split(" ");
+		    				System.out.println("Trajet + heure Depart :" + det[0] + " " +  det[1] + " " + det[2]);
+	    				}
+	    			}
+	    			System.out.println(" ");
+	    			while((ligne = buffer.readLine()) != null){
+	    				String[] det = ligne.replaceAll("\\s+", " ").split(" ");
+	    				System.out.println("Trajet + heure Depart :" + det[0] + " " +  det[1] + " " + det[2]);
+	    			}
+	    		}
+	    		else {
+	    			System.err.println("Format Txt non valide !!!!!");
+	    		}
+	    	
+	    	buffer.close();
 		}
 		else {
 			System.err.println("Something fucked up happened");
