@@ -3,7 +3,7 @@
 %
 % liste des liaisons :
 % depart arrivee duree-trajet
-%
+%	
 % liste d'horaires :
 % depart arrivee heure-depart
 % 
