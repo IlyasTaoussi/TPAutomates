@@ -14,7 +14,7 @@ public class LectureXML {
 	private DefaultHandler handlerXML;
 	//txt reader
 	
-	public LectureXML(String path, Transport exploitant) {
+	public LectureXML(String path, String exploitant) {
 		super();
 		this.path = path;
 		this.setDefaultHandler(exploitant);
@@ -33,8 +33,8 @@ public class LectureXML {
 	     }
 	   }
 	
-	public void setDefaultHandler(Transport exploitant) {
-		if(exploitant.equals(Transport.TRAIN)) {
+	public void setDefaultHandler(String exploitant) {
+		if(exploitant.equalsIgnoreCase("train")) {
 			handlerXML = new DefaultHandler(){
 				 
 		        boolean line = false;
@@ -104,47 +104,53 @@ public class LectureXML {
 
 		        /*imprime les données stockées entre '<' et '>' */
 		        public void characters(char ch[], int start, int length) throws SAXException {
+		        	String numLigne="";
+		        	String depart="";
+		        	String arrivee="";
+		        	String horaireDepart="";
+		        	String horaireArrivee="";
 		        	if (line) {
-			             System.out.println("Line : " + 
-			                    new String(ch, start, length));
+		        		 numLigne = new String(ch, start, length);
+			             System.out.println("Line : " +  numLigne);
 			             line = false;
 		        	}
 			   
 		        	if (junction) {
-		             System.out.println("Junction : " +
-		                     new String(ch, start, length));
+		        		System.out.println("Junction : " + new String(ch, start, length));
 			             junction = false;
 		        	}
 		        	
 		        	if (startStation) {
-		             System.out.println("Start Station : " + 
-		                    new String(ch, start, length));
-		             line = false;
+		        		depart = new String(ch, start, length);
+		        		System.out.println("Start Station : " + depart);
+		        		line = false;
 		           	}
 		   
 		           	if (arrivalStation) {
-		             System.out.println("Arrivée : " +
-		                     new String(ch, start, length));
-		             arrivalStation = false;
+		        		arrivee = new String(ch, start, length);
+		        		System.out.println("Arrivée : " + arrivee);
+		        		arrivalStation = false;
 		           	}
 		 
 		           	if (startHour) {
-		             System.out.println("heure Depart : " + 
-		                     new String(ch, start, length));
-		             startHour = false;
+		        		horaireDepart = new String(ch, start, length);
+		           		System.out.println("heure Depart : " + horaireDepart);
+		           		startHour = false;
 		           	}
 		 
 		           	if (arrivalHour) {
-		             System.out.println("heures Arrivée : " + 
-		                     new String(ch, start, length));
-		             arrivalHour = false;
+		           		horaireArrivee = new String(ch, start, length);
+		           		System.out.println("heures Arrivée : " + horaireArrivee);
+		           		arrivalHour = false;
+		           		Sommet nomStation = new Sommet(depart);
 		           	} 
+		           	
 		        }
 		 
 		    };
 		}
 		// si on trouve tram
-		else if(exploitant.equals(Transport.TRAM)) {
+		else { if(exploitant.equalsIgnoreCase("reseau")) {
 			handlerXML = new DefaultHandler(){
 				 
 		        boolean stations = false;
@@ -210,7 +216,7 @@ public class LectureXML {
 		        }
 		 
 		    };
-		
+		}
 			
 		}
 	}
