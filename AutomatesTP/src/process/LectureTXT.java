@@ -2,6 +2,7 @@ package process;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
 
 public class LectureTXT {
 	private BufferedReader buffer;
@@ -11,6 +12,14 @@ public class LectureTXT {
 		buffer = new BufferedReader(new FileReader(path));
 		if(exploitant.equals(Transport.METRO)) {
 			String ligne;
+			Sommet sommetDepart;
+			Sommet sommetArrivee;
+			Heure heureDepart = new Heure();
+			Heure heureArrivee = new Heure();
+			int duree = 0;
+			int intervaleDepart;
+			Horaire horaire;
+			Arc arc;
 		    ligne = buffer.readLine();
 		   	if(ligne.startsWith("% métro")) {
 		   		do{
@@ -23,6 +32,14 @@ public class LectureTXT {
 		    			if((ligne = buffer.readLine()).startsWith("%depart")) {
 		    				while(!(ligne = buffer.readLine()).isEmpty()) {
 		    					System.out.println("ligne : " + ligne);
+		    					sommetDepart = new Sommet(ligne.split(" ")[0]);
+		    					sommetArrivee = new Sommet(ligne.split(" ")[1]);
+				    			duree = Integer.parseInt(ligne.split(" ")[2]);
+		    					arc = new Arc(sommetDepart, sommetArrivee, Transport.METRO);
+		    					sommetDepart.addTrajet(arc);
+		    					Reseau.getListSommet().add(sommetDepart);
+		    					Reseau.getListSommet().add(sommetArrivee);
+		    					Reseau.addArc(arc);
 		    				}
 		    			}
 		    			else {
@@ -33,14 +50,18 @@ public class LectureTXT {
 		    		else if(ligne.startsWith("%à partir")) {
 		    			ligne = buffer.readLine();
 		    			System.out.println("Heure Depart : "+ ligne);
+		    			heureDepart = new Heure(ligne);
 		    		}
 		    		else if(ligne.startsWith("%toutes")) {
 		    			ligne = buffer.readLine();
 		    			System.out.println("Toutes les "+ligne+" minutes");
+		    			//intervaleDepart = Integer.parseInt(ligne);
 		    		}
 		    		else if(ligne.startsWith("%dernier")) {
 		    			ligne = buffer.readLine();
 		    			System.out.println("Heure Dernier Depart : " + ligne);
+		    			heureArrivee = new Heure(ligne);
+		    			horaire = new Horaire(heureDepart, heureArrivee, duree);
 		    			break;
 		    		}
 		    		else if(ligne.isBlank()) {

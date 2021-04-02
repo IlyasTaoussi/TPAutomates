@@ -16,8 +16,10 @@ public class Heure {
 		this.minutes = minutes;
 	}
 
-
-
+	public Heure() {
+		super();
+	}
+	
 	public int getHeures() {
 		return heures;
 	}
