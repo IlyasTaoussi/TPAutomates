@@ -3,26 +3,25 @@ package process;
 import java.util.ArrayList;
 
 public class Reseau {
-	private ArrayList<Sommet> ListSommet;
-	private ArrayList<Arc> ListArc;
+	private static ArrayList<Sommet> ListSommet = new ArrayList<>();
+	private static ArrayList<Arc> ListArc = new ArrayList<>();
 	
-	public Reseau(ArrayList<Sommet> listSommet, ArrayList<Arc> listArc, ArrayList<Horaire> listHoraire) {
-		super();
-		ListSommet = listSommet;
-		ListArc = listArc;
-	}
 	
-	public ArrayList<Sommet> getListSommet() {
+	
+	public static ArrayList<Sommet> getListSommet() {
 		return ListSommet;
 	}
-	public void setListSommet(ArrayList<Sommet> listSommet) {
+	public static void setListSommet(ArrayList<Sommet> listSommet) {
 		ListSommet = listSommet;
 	}
-	public ArrayList<Arc> getListArc() {
+	public static ArrayList<Arc> getListArc() {
 		return ListArc;
 	}
-	public void setListArc(ArrayList<Arc> listArc) {
+	public static void setListArc(ArrayList<Arc> listArc) {
 		ListArc = listArc;
 	}
 	
+	public static void addSommet(Sommet sommet) {
+		
+	}
 }
