@@ -14,11 +14,12 @@ public class LectureTXT {
 			String ligne;
 			Sommet sommetDepart;
 			Sommet sommetArrivee;
-			Heure heureDepart = new Heure();
-			Heure heureArrivee = new Heure();
+			Heure heureDebut = new Heure();
+			Heure heureFin = new Heure();
 			int duree = 0;
-			int intervaleDepart;
-			Horaire horaire;
+			int intervaleDepart = 0;
+			Horaire horaire = new Horaire();
+			ArrayList<Horaire> listHoraire;
 			Arc arc;
 		    ligne = buffer.readLine();
 		   	if(ligne.startsWith("% métro")) {
@@ -50,26 +51,30 @@ public class LectureTXT {
 		    		else if(ligne.startsWith("%à partir")) {
 		    			ligne = buffer.readLine();
 		    			System.out.println("Heure Depart : "+ ligne);
-		    			heureDepart = new Heure(ligne);
+		    			heureDebut = new Heure(ligne);
 		    		}
 		    		else if(ligne.startsWith("%toutes")) {
 		    			ligne = buffer.readLine();
 		    			System.out.println("Toutes les "+ligne+" minutes");
-		    			//intervaleDepart = Integer.parseInt(ligne);
+		    			intervaleDepart = Integer.parseInt(ligne);
 		    		}
 		    		else if(ligne.startsWith("%dernier")) {
 		    			ligne = buffer.readLine();
 		    			System.out.println("Heure Dernier Depart : " + ligne);
-		    			heureArrivee = new Heure(ligne);
-		    			horaire = new Horaire(heureDepart, heureArrivee, duree);
+		    			heureFin = new Heure(ligne);
 		    			break;
 		    		}
+		    		
+		    		
 		    		else if(ligne.isBlank()) {
 		    			continue;
 		    		}
 		    		else {
 		    			System.err.println("Format Txt non valide !!!!!");
 		    			break;
+		    		}
+		    		while (!heureDebut.CompareHeure(heureFin)) {
+						
 		    		}
 		    	}while(ligne != null);
 		    }

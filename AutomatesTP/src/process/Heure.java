@@ -64,6 +64,16 @@ public class Heure {
 		return arrivee.heureToDuree() - this.heureToDuree();
 	}
 	
+	public Boolean CompareHeure(Heure h) {
+		if (this.getHeures() >= h.getHeures()) {
+			return true;
+		}
+		else if (this.getHeures() == h.getHeures() && this.getMinutes() >= h.getMinutes()){
+			return true;
+		}
+		return false;
+	}
+	
 	@Override
 	public String toString() {
 		return heures + ":" + minutes;
