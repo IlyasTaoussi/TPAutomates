@@ -5,6 +5,11 @@ public class Horaire {
 	private Heure heureArrivee;
 	private int duree;
 	
+	
+	public Horaire() {
+		super();
+	}
+
 	public Horaire(Heure heureDepart, Heure heureArrivee, int duree) {
 		super();
 		this.heureDepart = heureDepart;

@@ -12,7 +12,11 @@ import org.xml.sax.helpers.DefaultHandler;
 public class LectureXML {
 	private String path;
 	private DefaultHandler handlerXML;
-	//txt reader
+	static StringBuffer buffer;
+	static Sommet sommetDepart;
+	static Sommet sommetArrivee;
+	static Arc arc;
+	static Horaire horaire;
 	
 	public LectureXML(String path, Transport exploitant) {
 		super();
@@ -36,10 +40,12 @@ public class LectureXML {
 	
 	
 	public void setDefaultHandler(Transport exploitant) {
+		
+		
 		if(exploitant.equals(Transport.TRAIN)) {
 			handlerXML = new DefaultHandler(){
-				 
-		        boolean line = false;
+				
+		        
 		        boolean junction = false;
 		        boolean startStation = false;
 		        boolean arrivalStation = false;
@@ -50,25 +56,26 @@ public class LectureXML {
 		          une balise ouvrante '<' */
 		        public void startElement(String uri, String localName,
 		               String qName,Attributes attributes) throws SAXException{
-		 
-		           if (qName.equalsIgnoreCase("line")) {
-		             line = true;
-		           }
+		     
 		 
 		           if (qName.equalsIgnoreCase("junction")) {
-		             junction = true;
+		        	   arc = new Arc();
+		        	   junction = true;
 		           }
 		 
 		           if (qName.equalsIgnoreCase("start-station")) {
-		             startStation = true;
+		        	   sommetDepart = new Sommet();
+		        	   startStation = true;
 		           }
 		 
 		           if (qName.equalsIgnoreCase("arrival-station")) {
-		             arrivalStation = true;
+		        	   sommetArrivee = new Sommet();
+		        	   arrivalStation = true;
 		           }
 		           
 		           if (qName.equalsIgnoreCase("start-hour")) {
-		             startHour = true;
+		        	   horaire = new Horaire();
+		        	   startHour = true;
 		           }
 			 
 		           if (qName.equalsIgnoreCase("arrival-hour")) {
@@ -79,10 +86,7 @@ public class LectureXML {
 		        /*cette méthode est invoquée à chaque fois que parser rencontre
 		          une balise fermante '>' */
 		        public void endElement(String uri, String localName,String qName) throws SAXException {
-		        	if (qName.equalsIgnoreCase("line")) {
-			             line = false;
-			           }
-			 
+		        	
 			           if (qName.equalsIgnoreCase("junction")) {
 			             junction = false;
 			           }
@@ -106,11 +110,7 @@ public class LectureXML {
 
 		        /*imprime les données stockées entre '<' et '>' */
 		        public void characters(char ch[], int start, int length) throws SAXException {
-		        	if (line) {
-			             System.out.println("Line : " + 
-			                    new String(ch, start, length));
-			             line = false;
-		        	}
+		        	
 			   
 		        	if (junction) {
 		             System.out.println("Junction : " +
@@ -121,7 +121,7 @@ public class LectureXML {
 		        	if (startStation) {
 		             System.out.println("Start Station : " + 
 		                    new String(ch, start, length));
-		             line = false;
+		             startStation = false;
 		           	}
 		   
 		           	if (arrivalStation) {

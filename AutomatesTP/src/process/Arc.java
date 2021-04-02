@@ -52,7 +52,7 @@ public class Arc {
 	}
 	
 	public void addHoraire(Horaire horaire) {
-		
+		this.horaires.add(horaire);
 	}
 	
 	public void updateHoraires(ArrayList<Horaire> horaires) {
