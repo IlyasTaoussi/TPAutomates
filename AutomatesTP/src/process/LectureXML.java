@@ -18,6 +18,7 @@ public class LectureXML {
 		super();
 		this.path = path;
 		this.setDefaultHandler(exploitant);
+		
 	}
 	
 	public void lectureTram() {
@@ -32,6 +33,7 @@ public class LectureXML {
 	       e.printStackTrace();
 	     }
 	   }
+	
 	
 	public void setDefaultHandler(Transport exploitant) {
 		if(exploitant.equals(Transport.TRAIN)) {
