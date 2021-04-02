@@ -64,7 +64,7 @@ public class Heure {
 		return arrivee.heureToDuree() - this.heureToDuree();
 	}
 	
-	public Boolean CompareHeure(Heure h) {
+	public Boolean plusGrandQue(Heure h) {
 		if (this.getHeures() >= h.getHeures()) {
 			return true;
 		}

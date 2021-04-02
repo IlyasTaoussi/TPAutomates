@@ -16,6 +16,8 @@ public class LectureXML {
 	static Sommet sommetDepart;
 	static Sommet sommetArrivee;
 	static Arc arc;
+	static Heure heureDepart;
+	static Heure heureArrivee;
 	static Horaire horaire;
 	
 	public LectureXML(String path, Transport exploitant) {
@@ -59,52 +61,66 @@ public class LectureXML {
 		     
 		 
 		           if (qName.equalsIgnoreCase("junction")) {
-		        	   arc = new Arc();
-		        	   junction = true;
+		        	   	arc = new Arc();
+		        	   	junction = true;
 		           }
+		           else {
+		        	   	buffer = new StringBuffer();
+		        	   	if (qName.equalsIgnoreCase("start-station")) {
+		        	   		sommetDepart = new Sommet();
+		        	   		startStation = true;
+		           		}
 		 
-		           if (qName.equalsIgnoreCase("start-station")) {
-		        	   sommetDepart = new Sommet();
-		        	   startStation = true;
-		           }
-		 
-		           if (qName.equalsIgnoreCase("arrival-station")) {
-		        	   sommetArrivee = new Sommet();
-		        	   arrivalStation = true;
-		           }
+		           		if (qName.equalsIgnoreCase("arrival-station")) {
+		        	   		sommetArrivee = new Sommet();
+		        	   		arrivalStation = true;
+		           		}
 		           
-		           if (qName.equalsIgnoreCase("start-hour")) {
-		        	   horaire = new Horaire();
-		        	   startHour = true;
-		           }
+		           		if (qName.equalsIgnoreCase("start-hour")) {
+		        	   		startHour = true;
+		           		}
 			 
-		           if (qName.equalsIgnoreCase("arrival-hour")) {
-	        	   	arrivalHour = true;
+		           		if (qName.equalsIgnoreCase("arrival-hour")) {
+	        	   			arrivalHour = true;
+		           		}
 		           }
 		        }
-		 
 		        /*cette méthode est invoquée à chaque fois que parser rencontre
 		          une balise fermante '>' */
 		        public void endElement(String uri, String localName,String qName) throws SAXException {
 		        	
 			           if (qName.equalsIgnoreCase("junction")) {
-			             junction = false;
+			        	   arc.setStationDepart(sommetArrivee);
+			        	   Reseau.getListArc().add(arc);
+			        	   arc = null;
+			        	   junction = false;
 			           }
 			 
 			           if (qName.equalsIgnoreCase("start-station")) {
-			             startStation = false;
+			        	   sommetDepart.setNomStation(buffer.toString());
+			        	   Reseau.getListSommet().add(sommetDepart);
+			        	   buffer = null;
+			        	   sommetDepart = null;
+			        	   startStation = false;
 			           }
 			 
 			           if (qName.equalsIgnoreCase("arrival-station")) {
-			             arrivalStation = false;
+			        	   sommetArrivee.setNomStation(buffer.toString());
+			        	   Reseau.getListSommet().add(sommetArrivee);
+			        	   buffer = null;
+			        	   sommetArrivee = null;
+			        	   arrivalStation = false;
 			           }
 			           
 			           if (qName.equalsIgnoreCase("start-hour")) {
-			             startHour = false;
+			        	   heureDepart = new Heure(buffer.toString());
+			        	   startHour = false;
 			           }
 				 
 			           if (qName.equalsIgnoreCase("arrival-hour")) {
-		        	   	arrivalHour = false;
+			        	   heureArrivee = new Heure(buffer.toString());
+			        	   horaire = new Horaire(heureDepart, heureArrivee, heureDepart.getDuree(heureArrivee));
+			        	   arrivalHour = false;
 			           }
 		        }
 
