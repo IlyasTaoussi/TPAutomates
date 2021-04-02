@@ -90,8 +90,12 @@ public class LectureXML {
 		        public void endElement(String uri, String localName,String qName) throws SAXException {
 		        	
 			           if (qName.equalsIgnoreCase("junction")) {
-			        	   arc.setStationDepart(sommetArrivee);
+			        	   arc.setStationDepart(sommetDepart);
+			        	   arc.setStationArrivee(sommetArrivee);
+			        	   sommetDepart.addTrajet(arc);
 			        	   Reseau.getListArc().add(arc);
+			        	   //unfinished
+			        	   Reseau.getListSommet().add(sommetArrivee);
 			        	   arc = null;
 			        	   junction = false;
 			           }
