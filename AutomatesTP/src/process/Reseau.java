@@ -34,4 +34,18 @@ public class Reseau {
 			ListSommet.add(sommet);
 		}
 	}
+	
+	public static void addArc(Arc arc) {
+		int i = 0;
+		for(Arc a : ListArc) {
+			if(a.equals(arc)) {
+				a.updateHoraires(arc.getHoraires());
+				break;
+			}
+			i++;
+		}
+		if(i == (ListArc.size()-1)) {
+			ListArc.add(arc);
+		}
+	}
 }

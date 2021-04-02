@@ -1,7 +1,6 @@
 package process;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Arc {
 	private Sommet stationDepart;
@@ -36,7 +35,7 @@ public class Arc {
 		this.stationArrivee = stationArrivee;
 	}
 
-	public List<Horaire> getHoraires() {
+	public ArrayList<Horaire> getHoraires() {
 		return horaires;
 	}
 
@@ -55,7 +54,13 @@ public class Arc {
 	public void addHoraire(Horaire horaire) {
 		
 	}
-
+	
+	public void updateHoraires(ArrayList<Horaire> horaires) {
+		for(Horaire h : horaires) {
+			this.horaires.add(h);
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
