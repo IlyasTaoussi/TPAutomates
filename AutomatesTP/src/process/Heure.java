@@ -54,7 +54,7 @@ public class Heure {
 		return this.getMinutes() + this.getHeures()*60;
 	}
 	
-	public Heure addDuree(Heure depart ,int duree) {
+	public static Heure addDuree(Heure depart ,int duree) {
 		Heure arrivee = new Heure(depart.getHeures(), depart.getMinutes()+duree);
 		arrivee.setHorloge();
 		return arrivee;

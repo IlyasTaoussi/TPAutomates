@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 
+import sun.jvm.hotspot.debugger.windbg.AddressDataSource;
+
 public class LectureTXT {
 	private BufferedReader buffer;
 	
@@ -73,8 +75,8 @@ public class LectureTXT {
 		    			System.err.println("Format Txt non valide !!!!!");
 		    			break;
 		    		}
-		    		while (!heureDebut.CompareHeure(heureFin)) {
-						
+		    		while (!heureDebut.plusGrandQue(heureFin)) {
+						heureDebut = Heure.addDuree(heureDebut, intervaleDepart);
 		    		}
 		    	}while(ligne != null);
 		    }
