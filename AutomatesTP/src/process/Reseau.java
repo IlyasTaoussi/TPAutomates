@@ -22,6 +22,16 @@ public class Reseau {
 	}
 	
 	public static void addSommet(Sommet sommet) {
-		
+		int i = 0;
+		for(Sommet s : ListSommet) {
+			if(s.equals(sommet)) {
+				s.updateTrajets(sommet.getTrajets());
+				break;
+			}
+			i++;
+		}
+		if(i == (ListSommet.size()-1)) {
+			ListSommet.add(sommet);
+		}
 	}
 }

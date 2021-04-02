@@ -55,4 +55,45 @@ public class Arc {
 	public void addHoraire(Horaire horaire) {
 		
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((horaires == null) ? 0 : horaires.hashCode());
+		result = prime * result + ((stationArrivee == null) ? 0 : stationArrivee.hashCode());
+		result = prime * result + ((stationDepart == null) ? 0 : stationDepart.hashCode());
+		result = prime * result + ((transport == null) ? 0 : transport.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Arc other = (Arc) obj;
+		if (horaires == null) {
+			if (other.horaires != null)
+				return false;
+		}
+		if (stationArrivee == null) {
+			if (other.stationArrivee != null)
+				return false;
+		} else if (!stationArrivee.getNomStation().equals(other.stationArrivee.getNomStation()))
+			return false;
+		if (stationDepart == null) {
+			if (other.stationDepart != null)
+				return false;
+		} else if (!stationDepart.getNomStation().equals(other.stationDepart.getNomStation()))
+			return false;
+		if (transport != other.transport)
+			return false;
+		return true;
+	}
+	
+	
 }
