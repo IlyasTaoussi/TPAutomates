@@ -82,6 +82,11 @@ public class Sommet {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Sommet [nomStation=" + nomStation + ", arcs=" + arcs + "]";
+	}
 	
 	
 }

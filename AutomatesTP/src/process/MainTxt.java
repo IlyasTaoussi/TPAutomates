@@ -37,10 +37,17 @@ public class MainTxt {
 	      }catch(Exception e){
 	    	e.printStackTrace();
 	      }*/
-		System.err.println("Lecture Metro !!!!");
-		LectureTXT metro = new LectureTXT("src/resource/metro.txt", Transport.METRO);
-		/*System.err.println("Lecture Car !!!!!");
-		LectureTXT car = new LectureTXT("src/resource/InterCites.txt", Transport.CAR);*/
-		
+		//System.err.println("Lecture Metro !!!!");
+		//LectureTXT metro = new LectureTXT("src/resource/metro.txt", Transport.METRO);
+		System.err.println("Lecture Car !!!!!");
+		LectureTXT car = new LectureTXT("src/resource/InterCites.txt", Transport.CAR);
+		//System.out.println("Liste d'arc : ");
+		for (Arc a : Reseau.getListArc()) {
+			System.out.println(a.toString());
+		}
+		//System.out.println("Liste des sommets : ");
+		for (Sommet s : Reseau.getListSommet()) {
+			System.out.println(s);
+		}
 	  }
 }

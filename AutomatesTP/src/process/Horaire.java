@@ -35,5 +35,10 @@ public class Horaire {
 	public void setDuree(int duree) {
 		this.duree = duree;
 	}
+
+	@Override
+	public String toString() {
+		return "Horaire [heureDepart=" + heureDepart + ", heureArrivee=" + heureArrivee + ", duree=" + duree + "]";
+	}
 	
 }

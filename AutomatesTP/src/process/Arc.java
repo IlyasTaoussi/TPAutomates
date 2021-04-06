@@ -108,6 +108,10 @@ public class Arc {
 			return false;
 		return true;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Arc [stationDepart=" + stationDepart.getNomStation() + ", stationArrivee=" + stationArrivee.getNomStation() + ", horaires=" + horaires
+				+ ", transport=" + transport + "]";
+	}
 }
