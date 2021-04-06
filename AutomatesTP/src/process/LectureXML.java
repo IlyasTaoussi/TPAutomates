@@ -48,10 +48,15 @@ public class LectureXML {
 			handlerXML = new DefaultHandler(){
 				
 		        
-		        boolean junction = false;
+		        @SuppressWarnings("unused")
+				boolean junction = false;
+		        @SuppressWarnings("unused")
 		        boolean startStation = false;
+		        @SuppressWarnings("unused")
 		        boolean arrivalStation = false;
+		        @SuppressWarnings("unused")
 		        boolean startHour = false;
+		        @SuppressWarnings("unused")
 		        boolean arrivalHour = false;
 		 
 		        /*cette méthode est invoquée à chaque fois que parser rencontre
