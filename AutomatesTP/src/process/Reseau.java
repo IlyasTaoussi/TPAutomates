@@ -48,4 +48,24 @@ public class Reseau {
 			ListArc.add(arc);
 		}
 	}
+	
+	public static boolean listArcsContains(Arc arc) {
+		for(Arc a : ListArc) {
+			if(a.equals(arc)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public static boolean listSommetsContains(Sommet sommet) {
+		for(Sommet s : ListSommet) {
+			if(s.equals(sommet)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }
