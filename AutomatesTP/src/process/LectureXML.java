@@ -92,27 +92,33 @@ public class LectureXML {
 			           if (qName.equalsIgnoreCase("junction")) {
 			        	   arc.setStationDepart(sommetDepart);
 			        	   arc.setStationArrivee(sommetArrivee);
+			        	   arc.addHoraire(horaire);
 			        	   sommetDepart.addTrajet(arc);
-			        	   Reseau.getListArc().add(arc);
-			        	   //unfinished
-			        	   Reseau.getListSommet().add(sommetArrivee);
+			        	   Reseau.addSommet(sommetDepart);
+			        	   Reseau.addArc(arc);
+			        	   
+			        	   
+			        	   
+			        	   heureDepart = null;
+			        	   heureArrivee = null;
+			        	   horaire = null;
+			        	   sommetArrivee = null;
+			        	   sommetDepart = null;
 			        	   arc = null;
 			        	   junction = false;
 			           }
 			 
 			           if (qName.equalsIgnoreCase("start-station")) {
 			        	   sommetDepart.setNomStation(buffer.toString());
-			        	   Reseau.getListSommet().add(sommetDepart);
+			        	   Reseau.addSommet(sommetDepart);
 			        	   buffer = null;
-			        	   sommetDepart = null;
 			        	   startStation = false;
 			           }
 			 
 			           if (qName.equalsIgnoreCase("arrival-station")) {
 			        	   sommetArrivee.setNomStation(buffer.toString());
-			        	   Reseau.getListSommet().add(sommetArrivee);
+			        	   Reseau.addSommet(sommetArrivee);
 			        	   buffer = null;
-			        	   sommetArrivee = null;
 			        	   arrivalStation = false;
 			           }
 			           
@@ -131,7 +137,7 @@ public class LectureXML {
 		        /*imprime les données stockées entre '<' et '>' */
 		        public void characters(char ch[], int start, int length) throws SAXException {
 		        	
-			   
+		        	/*
 		        	if (junction) {
 		             System.out.println("Junction : " +
 		                     new String(ch, start, length));
@@ -160,7 +166,10 @@ public class LectureXML {
 		             System.out.println("heures Arrivée : " + 
 		                     new String(ch, start, length));
 		             arrivalHour = false;
-		           	} 
+		           	} */
+		        	String lecture = new String(ch,start,length); 
+		    		if(buffer != null) buffer.append(lecture);  
+		        		
 		        }
 		 
 		    };
