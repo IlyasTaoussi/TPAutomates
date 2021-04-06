@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 
-import sun.jvm.hotspot.debugger.windbg.AddressDataSource;
+//import sun.jvm.hotspot.debugger.windbg.AddressDataSource;
 
 public class LectureTXT {
 	private BufferedReader buffer;
@@ -21,7 +21,7 @@ public class LectureTXT {
 			int duree = 0;
 			int intervaleDepart = 0;
 			Horaire horaire = new Horaire();
-			ArrayList<Horaire> listHoraire;
+			ArrayList<Horaire> listHoraire = new ArrayList<Horaire>();
 			Arc arc;
 		    ligne = buffer.readLine();
 		   	if(ligne.startsWith("% métro")) {
@@ -75,8 +75,12 @@ public class LectureTXT {
 		    			System.err.println("Format Txt non valide !!!!!");
 		    			break;
 		    		}
+		    		Heure heureDepart = heureDebut;
 		    		while (!heureDebut.plusGrandQue(heureFin)) {
-						heureDebut = Heure.addDuree(heureDebut, intervaleDepart);
+		    			Heure heureArrivee = Heure.addDuree(heureDebut, intervaleDepart);
+						horaire = new Horaire(heureDepart, heureArrivee, duree);
+						listHoraire.add(horaire);
+						heureDepart = heureArrivee;
 		    		}
 		    	}while(ligne != null);
 		    }

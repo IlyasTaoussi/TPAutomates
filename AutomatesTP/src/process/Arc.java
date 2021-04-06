@@ -17,6 +17,15 @@ public class Arc {
 		this.stationDepart = stationDepart;
 		this.stationArrivee = stationArrivee;
 		this.transport = transport;
+		this.horaires = new ArrayList<Horaire>();
+	}
+	
+	public Arc(Sommet stationDepart, Sommet stationArrivee, ArrayList<Horaire> horaires, Transport transport) {
+		super();
+		this.stationDepart = stationDepart;
+		this.stationArrivee = stationArrivee;
+		this.horaires = horaires;
+		this.transport = transport;
 	}
 
 	public Sommet getStationDepart() {
