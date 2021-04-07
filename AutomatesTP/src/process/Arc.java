@@ -2,7 +2,7 @@ package process;
 
 import java.util.ArrayList;
 
-public class Arc {
+public class Arc implements Cloneable{
 	private Sommet stationDepart;
 	private Sommet stationArrivee;
 	private ArrayList<Horaire> horaires;
@@ -107,6 +107,13 @@ public class Arc {
 		if (transport != other.transport)
 			return false;
 		return true;
+	}
+
+	
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		return super.clone();
 	}
 
 	@Override

@@ -43,12 +43,12 @@ public class MainTxt {
 	//	LectureTXT car = new LectureTXT("src/resource/InterCites.txt", Transport.CAR);
 
 		//System.out.println("Liste d'arc : ");
-	/*	for (Arc a : Reseau.getListArc()) {
+		for (Arc a : Reseau.getListArc()) {
 			System.out.println(a);
 		}
-	*/	//System.out.println("Liste des sommets : ");
-		/*for (Sommet s : Reseau.getListSommet()) {
+		//System.out.println("Liste des sommets : ");
+		for (Sommet s : Reseau.getListSommet()) {
 			System.out.println(s);
-		}*/
+		}
 	  }
 }

@@ -21,7 +21,7 @@ public class LectureTXT {
 			int duree = 0;
 			int intervaleDepart = 0;
 			Horaire horaire = new Horaire();
-			ArrayList<Horaire> listHoraire = new ArrayList<Horaire>();
+			ArrayList<Horaire> listHoraire;
 			Arc arc = new Arc();
 		    ligne = buffer.readLine();
 		   	if(ligne.startsWith("% métro")) {
@@ -43,8 +43,8 @@ public class LectureTXT {
 				    			initial.add(h);
 		    					arc = new Arc(sommetDepart, sommetArrivee, initial, Transport.METRO);
 		    					sommetDepart.addTrajet(arc);
-		    					Reseau.getListSommet().add(sommetDepart);
-		    					Reseau.getListSommet().add(sommetArrivee);
+		    					Reseau.addSommet(sommetDepart);
+		    					Reseau.addSommet(sommetArrivee);
 		    					Reseau.addArc(arc);
 		    				}
 		    			}
@@ -76,7 +76,7 @@ public class LectureTXT {
 		    			System.err.println("Format Txt non valide !!!!!");
 		    			break;
 		    		}
-		    		Heure heureDepart = heureDebut;
+		   /* 		Heure heureDepart = heureDebut;
 		    		while (!heureDebut.plusGrandQue(heureFin)) {
 		    			Heure heureArrivee = Heure.addDuree(heureDepart, duree);
 						horaire = new Horaire(heureDepart, heureArrivee, duree);
@@ -84,26 +84,33 @@ public class LectureTXT {
 						heureDepart = Heure.addDuree(heureDepart, intervaleDepart);
 		    		}
 		    		arc.setHoraires(listHoraire);
-					
+			*/		
 		    	}while(ligne != null);
+		   		ArrayList<Arc> copie = Reseau.cloneListArc();
+		   		for(Arc a : copie) {
+			    	if(a.getTransport().equals(Transport.METRO)){
+			    		Heure heureDepart = heureDebut;
+			    		ArrayList<Horaire> liste = new ArrayList<>();
+			    		int dureeT = a.getHoraires().get(0).getDuree();
+			    		while (!heureDepart.plusGrandQue(heureFin)) {
+			    			Heure heureArrivee = Heure.addDuree(heureDepart, dureeT);
+							horaire = new Horaire(heureDepart, heureArrivee, dureeT);
+							liste.add(horaire);
+							
+							heureDepart = Heure.addDuree(heureDepart, intervaleDepart);
+			    		}
+			    		System.out.println("nothing happens sucka");
+			    		System.out.println(liste);
+			    		a.setHoraires(liste);
+			    	}
+			    }
 		    }
 		    else {
 		    	System.err.println("Format Txt non valide !!!!!");
 		   	}		    	
 		    buffer.close();
-		    for(Arc a : Reseau.getListArc()) {
-		    	if(a.getTransport().equals(Transport.METRO)){
-		    		Heure heureDepart = heureDebut;
-		    		int dureeT = a.getHoraires().get(0).getDuree();
-		    		a.getHoraires().remove(0);
-		    		while (!heureDepart.plusGrandQue(heureFin)) {
-		    			Heure heureArrivee = Heure.addDuree(heureDepart, dureeT);
-						horaire = new Horaire(heureDepart, heureArrivee, dureeT);
-						listHoraire.add(horaire);
-						heureDepart = Heure.addDuree(heureDepart, intervaleDepart);
-		    		}
-		    	}
-		    }
+		    
+		    
 		}		
 		//Lecture du fichier InterCites
 		else if(exploitant.equals(Transport.CAR)) {

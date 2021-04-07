@@ -69,4 +69,11 @@ public class Reseau {
 		return false;
 	}
 	
+	public static ArrayList<Arc> cloneListArc() throws CloneNotSupportedException {
+		ArrayList<Arc> copie = new ArrayList<>();
+		for(Arc a : ListArc) {
+			copie.add((Arc) a.clone());
+		}
+		return copie;
+	}
 }
