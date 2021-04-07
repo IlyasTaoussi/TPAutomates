@@ -65,10 +65,10 @@ public class Heure {
 	}
 	
 	public Boolean plusGrandQue(Heure h) {
-		if (this.getHeures() >= h.getHeures()) {
+		if (this.getHeures() > h.getHeures()) {
 			return true;
 		}
-		else if (this.getHeures() == h.getHeures() && this.getMinutes() >= h.getMinutes()){
+		else if (this.getHeures() == h.getHeures() && this.getMinutes() > h.getMinutes()){
 			return true;
 		}
 		return false;
