@@ -29,19 +29,19 @@ public class LectureTXT {
 		 			ligne = buffer.readLine();
 		    		if(ligne.startsWith("%stations")) {
 		  				ligne = buffer.readLine();
-		    			System.out.println("Stations : " + ligne.split(" "));
+		    			System.out.println("Stations : " + ligne);
 		    		}
 		    		else if(ligne.startsWith("%liaisons")){
 		    			if((ligne = buffer.readLine()).startsWith("%depart")) {
 		    				while(!(ligne = buffer.readLine()).isEmpty()) {
-		    					System.out.println("ligne : " + ligne);
+		    					System.out.println("ligne :" + ligne.split(" ")[0] + " " + ligne.split(" ")[1] + " " + ligne.split(" ")[2]);
 		    					sommetDepart = new Sommet(ligne.split(" ")[0]);
 		    					sommetArrivee = new Sommet(ligne.split(" ")[1]);
 				    			duree = Integer.parseInt(ligne.split(" ")[2]);
 		    					arc = new Arc(sommetDepart, sommetArrivee, Transport.METRO);
 		    					sommetDepart.addTrajet(arc);
-		    					Reseau.getListSommet().add(sommetDepart);
-		    					Reseau.getListSommet().add(sommetArrivee);
+		    					Reseau.addSommet(sommetDepart);
+		    					Reseau.addSommet(sommetArrivee);
 		    				}
 		    			}
 		    			else {
@@ -73,10 +73,11 @@ public class LectureTXT {
 		    			break;
 		    		}
 		    		Heure heureDepart = heureDebut;
-		    		while (!heureDebut.plusGrandQue(heureFin)) {
+		    		while (!heureDepart.plusGrandQue(heureFin)) {
 		    			Heure heureArrivee = Heure.addDuree(heureDepart, duree);
 						horaire = new Horaire(heureDepart, heureArrivee, duree);
 						listHoraire.add(horaire);
+						System.out.println(horaire);
 						heureDepart = Heure.addDuree(heureDepart, intervaleDepart);
 		    		}
 		    		arc.setHoraires(listHoraire);
@@ -99,7 +100,7 @@ public class LectureTXT {
 			Horaire horaire = new Horaire();
 			Arc arc = new Arc();
 			int duree = 0;
-	    	buffer = new BufferedReader(new FileReader("src/resource/InterCites.txt"));
+	    	buffer = new BufferedReader(new FileReader(path));
 	    	ligne = buffer.readLine();
 	    		if(ligne.startsWith("% Car")) {
 	    			while(!(ligne = buffer.readLine()).startsWith("//")) {
@@ -108,31 +109,23 @@ public class LectureTXT {
 	    				}
 	    				else {
 	    					String[] det = ligne.replaceAll("\\s+", " ").split(" ");
-		    				//System.out.println("Trajet + heure Depart :" + det[0] + " " +  det[1] + " " + det[2]);
 		    				duree = Integer.parseInt(det[2]);
 	    				}
 	    			}
 	    			System.out.println(" ");
 	    			while((ligne = buffer.readLine()) != null){
 	    				String[] det = ligne.replaceAll("\\s+", " ").split(" ");
-	    				//System.out.println("Trajet + heure Depart :" + det[0] + " " +  det[1] + " " + det[2]);
 	    				sommetDepart = new Sommet(det[0]);
 	    				sommetArrivee = new Sommet(det[1]);
 	    				heureDepart = new Heure(det[2]);
 	    				heureArrivee = Heure.addDuree(heureDepart, duree);
 	    				horaire = new Horaire(heureDepart, heureArrivee, duree);
 	    				arc = new Arc(sommetDepart, sommetArrivee, Transport.CAR);
-	    				//System.out.println(arc);
 	    				arc.addHoraire(horaire);
-	    				//System.out.println(horaire);
 	    				sommetDepart.addTrajet(arc);
-	    				//System.out.println(sommetDepart);
 	    				Reseau.addSommet(sommetDepart);
-	    				//System.out.println(sommetArrivee);
     					Reseau.addSommet(sommetArrivee);
 						Reseau.addArc(arc);
-						//System.out.println(heureArrivee);
-    					System.out.println(Reseau.test());
     				}
 	    		}
 	    		else {

@@ -25,17 +25,13 @@ public class Reseau {
 		int i = 0;
 		for(Sommet s : ListSommet) {
 			if(s.equals(sommet)) {
-				System.out.println("test 1 avant");
 				s.updateTrajets(sommet.getTrajets());
-				System.out.println("test 1");
 				break;
 			}
 			i++;
 		}
-		if(i == (ListSommet.size()-1)) {
-			System.out.println("test 2 avant");
+		if((i == (ListSommet.size())) || (i == 0)) {
 			ListSommet.add(sommet);
-			System.out.println("test 2");
 		}
 	}
 	
@@ -48,7 +44,7 @@ public class Reseau {
 			}
 			i++;
 		}
-		if(i == (ListArc.size()-1)) {
+		if((i == (ListArc.size()) ) || (i == 0)) {
 			ListArc.add(arc);
 		}
 	}
@@ -73,7 +69,4 @@ public class Reseau {
 		return false;
 	}
 	
-	public static String test() {
-        return "FAST AS FUCK BOIII!!!!!";
-    }
 }
