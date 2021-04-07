@@ -47,8 +47,8 @@ public class MainTxt {
 			System.out.println(a);
 		}
 	*/	//System.out.println("Liste des sommets : ");
-		for (Sommet s : Reseau.getListSommet()) {
+		/*for (Sommet s : Reseau.getListSommet()) {
 			System.out.println(s);
-		}
+		}*/
 	  }
 }
