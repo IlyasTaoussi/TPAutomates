@@ -22,9 +22,21 @@ public class LectureXML {
 	
 	public LectureXML(String path, Transport exploitant) {
 		super();
-		this.path = path;
+	/*	this.path = path;
 		this.setDefaultHandler(exploitant);
-		
+	*/	try {
+			
+			this.path = path;
+			this.setDefaultHandler(exploitant);
+			
+	        SAXParserFactory spfactory = SAXParserFactory.newInstance();
+	        SAXParser saxParser = spfactory.newSAXParser();
+	        
+	        saxParser.parse(path, handlerXML);
+	 
+	     } catch (Exception e) {
+	       e.printStackTrace();
+	     }
 	}
 	
 	public void lectureTram() {
@@ -94,7 +106,7 @@ public class LectureXML {
 		          une balise fermante '>' */
 		        public void endElement(String uri, String localName,String qName) throws SAXException {
 		        	
-			           if (qName.equalsIgnoreCase("junction")) {
+			           if (qName.equalsIgnoreCase("/junction")) {
 			        	   arc.setStationDepart(sommetDepart);
 			        	   arc.setStationArrivee(sommetArrivee);
 			        	   arc.addHoraire(horaire);
@@ -113,67 +125,66 @@ public class LectureXML {
 			        	   junction = false;
 			           }
 			 
-			           if (qName.equalsIgnoreCase("start-station")) {
+			           if (qName.equalsIgnoreCase("/start-station")) {
 			        	   sommetDepart.setNomStation(buffer.toString());
 			        	   Reseau.addSommet(sommetDepart);
+			        	   System.out.println(sommetDepart);
 			        	   buffer = null;
 			        	   startStation = false;
 			           }
 			 
-			           if (qName.equalsIgnoreCase("arrival-station")) {
+			           if (qName.equalsIgnoreCase("/arrival-station")) {
 			        	   sommetArrivee.setNomStation(buffer.toString());
 			        	   Reseau.addSommet(sommetArrivee);
+			        	   System.out.println(sommetArrivee);
 			        	   buffer = null;
 			        	   arrivalStation = false;
 			           }
 			           
-			           if (qName.equalsIgnoreCase("start-hour")) {
+			           if (qName.equalsIgnoreCase("/start-hour")) {
 			        	   heureDepart = new Heure(buffer.toString());
 			        	   startHour = false;
 			           }
 				 
-			           if (qName.equalsIgnoreCase("arrival-hour")) {
+			           if (qName.equalsIgnoreCase("/arrival-hour")) {
 			        	   heureArrivee = new Heure(buffer.toString());
 			        	   horaire = new Horaire(heureDepart, heureArrivee, heureDepart.getDuree(heureArrivee));
+			        	   
 			        	   arrivalHour = false;
 			           }
 		        }
 
 		        /*imprime les données stockées entre '<' et '>' */
 		        public void characters(char ch[], int start, int length) throws SAXException {
-		        	
+		        	String lecture = new String(ch,start,length);
+		        	if(buffer != null) buffer.append(lecture); 
 		        	/*
-		        	if (junction) {
-		             System.out.println("Junction : " +
-		                     new String(ch, start, length));
-			             junction = false;
-		        	}
-		        	
 		        	if (startStation) {
 		             System.out.println("Start Station : " + 
-		                    new String(ch, start, length));
+		                    buffer.toString());
 		             startStation = false;
 		           	}
 		   
 		           	if (arrivalStation) {
 		             System.out.println("Arrivée : " +
-		                     new String(ch, start, length));
+		                     buffer.toString());
 		             arrivalStation = false;
 		           	}
 		 
 		           	if (startHour) {
 		             System.out.println("heure Depart : " + 
-		                     new String(ch, start, length));
+		                     buffer.toString());
 		             startHour = false;
 		           	}
 		 
 		           	if (arrivalHour) {
 		             System.out.println("heures Arrivée : " + 
-		                     new String(ch, start, length));
+		                     buffer.toString());
 		             arrivalHour = false;
-		           	} */
-		        	String lecture = new String(ch,start,length); 
-		    		if(buffer != null) buffer.append(lecture);  
+		           	}
+		           	*/
+		        	 
+		    		 
 		        		
 		        }
 		 
