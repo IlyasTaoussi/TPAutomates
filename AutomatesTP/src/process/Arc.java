@@ -1,6 +1,5 @@
 package process;
 
-import java.util.ArrayList;
 
 public class Arc implements Cloneable{
 	private Sommet stationDepart;

@@ -18,7 +18,6 @@ public class LectureTXT {
 			Sommet sommetArrivee;
 			Heure heureDebut = new Heure();
 			Heure heureFin = new Heure();
-			int duree = 0;
 			int intervaleDepart = 0;
 			Horaire horaire = new Horaire();
 			ArrayList<String[]> DepArrDur = new ArrayList<>();

@@ -1,7 +1,7 @@
 package process;
 
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.xml.parsers.SAXParser;
@@ -225,35 +225,14 @@ public class LectureXML {
 		        	if (qName.equalsIgnoreCase("stations")) {
 		        		if(line != 0) {
 		        			ListStation = null;
-		        		//	listArcTram = new ArrayList<>();
 		        			ListStation = buffer.toString().split(" ");
-		        		/*	for(int i=0; i<ListStation.length; i++) {
-		        				if(i != (ListStation.length-1)) {
-		        					sommetDepart = new Sommet(ListStation[i]);
-		        					sommetArrivee = new Sommet(ListStation[(i+1)]);
-		        					arc = new Arc(sommetDepart, sommetArrivee, Transport.TRAM);
-		        					listArcTram.add(arc);
-		        				}
-		        				else {
-		        					sommetDepart = new Sommet(ListStation[ListStation.length-1]);
-		        					sommetArrivee = new Sommet(ListStation[1]);
-		        					arc = new Arc(sommetDepart, sommetArrivee, Transport.TRAM);
-		        					listArcTram.add(arc);
-		        				}
-		        			}
-		        		*/	
+		        			
 		        			stations = false;
 		        		}
 		        	}
 			 
 		        	if (qName.equalsIgnoreCase("ligne")) {
-		        		
-		        /*		for(Arc a : listArcTram) {
-		        		
-		        			Reseau.addSommet(a.getStationDepart());
-		        			Reseau.addArc(a);
-		        		}
-		        */		ligne = false;
+		        		ligne = false;
 		        	}
 			 
 		        	if (qName.equalsIgnoreCase("heures-passage")) {
@@ -286,12 +265,7 @@ public class LectureXML {
 		        /*imprime les données stockées entre '<' et '>' */
 		        public void characters(char ch[], int start, int length) throws SAXException {
 		        	 
-		        	/*if (stations) {
-			             System.out.println("Stations : " + 
-			                    new String(ch, start, length));
-			             stations = false;
-		        	}
-			   		*/
+		        	
 		        	if (ligne) {
 		        		line = Integer.parseInt(new String(ch, start, length).replaceAll("\\s+", ""));
 		        		ligne = false;
@@ -300,13 +274,7 @@ public class LectureXML {
 		        		String lecture = new String(ch,start,length);
 			        	if(buffer != null) buffer.append(lecture);
 		        	}
-		        	/*
-		           	if (heuresPassage) {
-		           		System.out.println("Heures de passage : " + 
-		                     new String(ch, start, length));
-		           		heuresPassage = false;
-		           	}
-		 			*/
+		        	
 		        }
 		 
 		    };
