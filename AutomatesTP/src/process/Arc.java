@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Arc implements Cloneable{
 	private Sommet stationDepart;
 	private Sommet stationArrivee;
-	private ArrayList<Horaire> horaires;
+	private Horaire horaire;
 	private Transport transport;
 	
 	public Arc() {
@@ -17,14 +17,13 @@ public class Arc implements Cloneable{
 		this.stationDepart = stationDepart;
 		this.stationArrivee = stationArrivee;
 		this.transport = transport;
-		this.horaires = new ArrayList<Horaire>();
 	}
 	
-	public Arc(Sommet stationDepart, Sommet stationArrivee, ArrayList<Horaire> horaires, Transport transport) {
+	public Arc(Sommet stationDepart, Sommet stationArrivee, Horaire horaire, Transport transport) {
 		super();
 		this.stationDepart = stationDepart;
 		this.stationArrivee = stationArrivee;
-		this.horaires = horaires;
+		this.horaire = horaire;
 		this.transport = transport;
 	}
 
@@ -44,12 +43,12 @@ public class Arc implements Cloneable{
 		this.stationArrivee = stationArrivee;
 	}
 
-	public ArrayList<Horaire> getHoraires() {
-		return horaires;
+	public Horaire getHoraire() {
+		return horaire;
 	}
 
-	public void setHoraires(ArrayList<Horaire> horaires) {
-		this.horaires = horaires;
+	public void setHoraires(Horaire horaire) {
+		this.horaire = horaire;
 	}
 
 	public Transport getTransport() {
@@ -60,21 +59,14 @@ public class Arc implements Cloneable{
 		this.transport = transport;
 	}
 	
-	public void addHoraire(Horaire horaire) {
-		this.horaires.add(horaire);
-	}
 	
-	public void updateHoraires(ArrayList<Horaire> horaires) {
-		for(Horaire h : horaires) {
-			this.horaires.add(h);
-		}
-	}
+
 	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((horaires == null) ? 0 : horaires.hashCode());
+		result = prime * result + ((horaire == null) ? 0 : horaire.hashCode());
 		result = prime * result + ((stationArrivee == null) ? 0 : stationArrivee.hashCode());
 		result = prime * result + ((stationDepart == null) ? 0 : stationDepart.hashCode());
 		result = prime * result + ((transport == null) ? 0 : transport.hashCode());
@@ -90,26 +82,26 @@ public class Arc implements Cloneable{
 		if (getClass() != obj.getClass())
 			return false;
 		Arc other = (Arc) obj;
-		if (horaires == null) {
-			if (other.horaires != null)
+		if (horaire == null) {
+			if (other.horaire != null)
 				return false;
-		}
+		} else if (!horaire.equals(other.horaire))
+			return false;
 		if (stationArrivee == null) {
 			if (other.stationArrivee != null)
 				return false;
-		} else if (!stationArrivee.getNomStation().equals(other.stationArrivee.getNomStation()))
+		} else if (!stationArrivee.equals(other.stationArrivee))
 			return false;
 		if (stationDepart == null) {
 			if (other.stationDepart != null)
 				return false;
-		} else if (!stationDepart.getNomStation().equals(other.stationDepart.getNomStation()))
+		} else if (!stationDepart.equals(other.stationDepart))
 			return false;
 		if (transport != other.transport)
 			return false;
 		return true;
 	}
 
-	
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		// TODO Auto-generated method stub
@@ -118,7 +110,7 @@ public class Arc implements Cloneable{
 
 	@Override
 	public String toString() {
-		return "Arc [stationDepart=" + stationDepart.getNomStation() + ", stationArrivee=" + stationArrivee.getNomStation() + ", horaires=" + horaires
+		return "Arc [stationDepart=" + stationDepart.getNomStation() + ", stationArrivee=" + stationArrivee.getNomStation() + ", horaire=" + horaire
 				+ ", transport=" + transport + "]";
 	}
 }

@@ -14,7 +14,8 @@ public class Main {
 			
 			System.out.println("Liste d'arc : ");
 			for (Arc a : Reseau.getListArc()) {
-				System.out.println(a);
+				if(a.getTransport() != Transport.METRO)
+					System.out.println(a);
 			}
 			System.out.println("Liste des sommets : ");
 			for (Sommet s : Reseau.getListSommet()) {

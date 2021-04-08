@@ -60,5 +60,40 @@ public class Horaire {
 	public String toString() {
 		return "Horaire [heureDepart=" + heureDepart + ", heureArrivee=" + heureArrivee + ", duree=" + duree + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + duree;
+		result = prime * result + ((heureArrivee == null) ? 0 : heureArrivee.hashCode());
+		result = prime * result + ((heureDepart == null) ? 0 : heureDepart.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Horaire other = (Horaire) obj;
+		if (duree != other.duree)
+			return false;
+		if (heureArrivee == null) {
+			if (other.heureArrivee != null)
+				return false;
+		} else if (!heureArrivee.equals(other.heureArrivee))
+			return false;
+		if (heureDepart == null) {
+			if (other.heureDepart != null)
+				return false;
+		} else if (!heureDepart.equals(other.heureDepart))
+			return false;
+		return true;
+	}
+	
 	
 }

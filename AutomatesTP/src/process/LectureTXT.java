@@ -21,7 +21,7 @@ public class LectureTXT {
 			int duree = 0;
 			int intervaleDepart = 0;
 			Horaire horaire = new Horaire();
-			ArrayList<Horaire> listHoraire;
+			ArrayList<String[]> DepArrDur = new ArrayList<>();
 			
 			Arc arc = new Arc();
 		    ligne = buffer.readLine();
@@ -30,23 +30,11 @@ public class LectureTXT {
 		 			ligne = buffer.readLine();
 		    		if(ligne.startsWith("%stations")) {
 		  				ligne = buffer.readLine();
-		    			System.out.println("Stations : " + ligne.split(" "));
 		    		}
 		    		else if(ligne.startsWith("%liaisons")){
 		    			if((ligne = buffer.readLine()).startsWith("%depart")) {
 		    				while(!(ligne = buffer.readLine()).isEmpty()) {
-		    					System.out.println("ligne : " + ligne);
-		    					sommetDepart = new Sommet(ligne.split(" ")[0]);
-		    					sommetArrivee = new Sommet(ligne.split(" ")[1]);
-				    			duree = Integer.parseInt(ligne.split(" ")[2]);
-				    			Horaire h = new Horaire(heureDebut, heureFin, duree);
-				    			ArrayList<Horaire> initial = new ArrayList<>();
-				    			initial.add(h);
-		    					arc = new Arc(sommetDepart, sommetArrivee, initial, Transport.METRO);
-		    					sommetDepart.addTrajet(arc);
-		    					Reseau.addSommet(sommetDepart);
-		    					Reseau.addSommet(sommetArrivee);
-		    					Reseau.addArc(arc);
+		    					DepArrDur.add(ligne.split(" "));
 		    				}
 		    			}
 		    			else {
@@ -56,17 +44,14 @@ public class LectureTXT {
 		    		}
 		    		else if(ligne.startsWith("%à partir")) {
 		    			ligne = buffer.readLine();
-		    			System.out.println("Heure Depart : "+ ligne);
 		    			heureDebut = new Heure(ligne);
 		    		}
 		    		else if(ligne.startsWith("%toutes")) {
 		    			ligne = buffer.readLine();
-		    			System.out.println("Toutes les "+ligne+" minutes");
 		    			intervaleDepart = Integer.parseInt(ligne);
 		    		}
 		    		else if(ligne.startsWith("%dernier")) {
 		    			ligne = buffer.readLine();
-		    			System.out.println("Heure Dernier Depart : " + ligne);
 		    			heureFin = new Heure(ligne);
 		    			break;
 		    		}
@@ -87,25 +72,22 @@ public class LectureTXT {
 		    		arc.setHoraires(listHoraire);
 			*/		
 		    	}while(ligne != null);
-		   		ArrayList<Arc> copie = Reseau.cloneListArc();
-		   		for(Arc a : copie) {
-			    	if(a.getTransport().equals(Transport.METRO)){
-			    		Heure heureDepart = heureDebut;
-			    		ArrayList<Horaire> liste = new ArrayList<>();
-			    		int dureeT = a.getHoraires().get(0).getDuree();
-			    		while (!heureDepart.plusGrandQue(heureFin)) {
-			    			Heure heureArrivee = Heure.addDuree(heureDepart, dureeT);
-							horaire = new Horaire(heureDepart, heureArrivee, dureeT);
-							liste.add(horaire);
-							System.out.println(heureDepart);
-							heureDepart = Heure.addDuree(heureDepart, intervaleDepart);
-			    		}
-			    		
-			    		System.out.println(liste);
-			    		a.updateHoraires(liste);
-			    		Reseau.addArc(a);
-			    	}
-			    }
+
+		   		for(int i=0; i<DepArrDur.size(); i++) {
+		   			sommetDepart = new Sommet(DepArrDur.get(i)[0]);
+		   			sommetArrivee = new Sommet(DepArrDur.get(i)[1]);
+		   			Reseau.addSommet(sommetDepart);
+		   			Reseau.addSommet(sommetArrivee);
+		   			Heure heureDepart = heureDebut;
+		   			Heure heureArrivee;
+		   			while(!heureDepart.plusGrandQue(heureFin)) {
+		   				heureArrivee = Heure.addDuree(heureDepart, Integer.parseInt(DepArrDur.get(i)[2]));
+		   				horaire = new Horaire(heureDepart, heureArrivee);
+		   				arc = new Arc(sommetDepart, sommetArrivee, horaire, Transport.METRO);
+		   				Reseau.addArc(arc);
+		   				heureDepart = Heure.addDuree(heureDepart, intervaleDepart);
+		   			}
+		   		}
 		    }
 		    else {
 		    	System.err.println("Format Txt non valide !!!!!");
@@ -150,9 +132,8 @@ public class LectureTXT {
 	    				}
 	    				heureArrivee = Heure.addDuree(heureDepart, duree);
 	    				horaire = new Horaire(heureDepart, heureArrivee, duree);
-	    				arc = new Arc(sommetDepart, sommetArrivee, Transport.CAR);
-	    				arc.addHoraire(horaire);
-	    				sommetDepart.addTrajet(arc);
+	    				arc = new Arc(sommetDepart, sommetArrivee, horaire, Transport.CAR);
+	    //				arc.addHoraire(horaire);
 	    				Reseau.addSommet(sommetDepart);
     					Reseau.addSommet(sommetArrivee);
 						Reseau.addArc(arc);

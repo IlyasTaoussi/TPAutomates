@@ -21,31 +21,24 @@ public class Reseau {
 		ListArc = listArc;
 	}
 	
-	public static void addSommet(Sommet sommet) {
-		int i = 0;
+	public static Sommet addSommet(Sommet sommet) {
 		for(Sommet s : ListSommet) {
 			if(s.equals(sommet)) {
-				s.updateTrajets(sommet.getTrajets());
-				break;
+				return s;
 			}
-			i++;
 		}
-		if((i == (ListSommet.size())) || (i == 0)) {
-			ListSommet.add(sommet);
-		}
+		ListSommet.add(sommet);
+		return sommet;
 	}
 	
-	public static void addArc(Arc arc) {
-		int i = 0;
+	public synchronized static Arc addArc(Arc arc) {
 		for(Arc a : ListArc) {
 			if(a.equals(arc)) {
-				a.updateHoraires(arc.getHoraires());
+				return a;
 			}
-			i++;
 		}
-		if((i == (ListArc.size()) ) || (i == 0)) {
-			ListArc.add(arc);
-		}
+		ListArc.add(arc);
+		return arc;
 	}
 	
 	/*

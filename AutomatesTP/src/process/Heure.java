@@ -76,7 +76,36 @@ public class Heure {
 	
 	@Override
 	public String toString() {
+		if(minutes < 10)
+			return heures + ":0" + minutes;
 		return heures + ":" + minutes;
+	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + heures;
+		result = prime * result + minutes;
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Heure other = (Heure) obj;
+		if (heures != other.heures)
+			return false;
+		if (minutes != other.minutes)
+			return false;
+		return true;
 	}
 	
 	

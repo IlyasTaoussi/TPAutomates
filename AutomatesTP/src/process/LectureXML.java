@@ -110,9 +110,8 @@ public class LectureXML {
 		        public void endElement(String uri, String localName,String qName) throws SAXException {
 		        	
 			           if (qName.equalsIgnoreCase("junction")) {
-			        	   arc = new Arc(sommetDepart, sommetArrivee, Transport.TRAIN);
-			        	   arc.addHoraire(horaire);
-			        	   sommetDepart.addTrajet(arc);
+			        	   arc = new Arc(sommetDepart, sommetArrivee,horaire, Transport.TRAIN);
+			        	   
 			        	   Reseau.addSommet(sommetDepart);
 			        	   Reseau.addArc(arc);
 			        	   
@@ -226,50 +225,58 @@ public class LectureXML {
 		        	if (qName.equalsIgnoreCase("stations")) {
 		        		if(line != 0) {
 		        			ListStation = null;
-		        			listArcTram = new ArrayList<>();
+		        		//	listArcTram = new ArrayList<>();
 		        			ListStation = buffer.toString().split(" ");
-		        			for(int i=0; i<ListStation.length; i++) {
+		        		/*	for(int i=0; i<ListStation.length; i++) {
 		        				if(i != (ListStation.length-1)) {
 		        					sommetDepart = new Sommet(ListStation[i]);
 		        					sommetArrivee = new Sommet(ListStation[(i+1)]);
 		        					arc = new Arc(sommetDepart, sommetArrivee, Transport.TRAM);
-		        					sommetDepart.addTrajet(arc);
 		        					listArcTram.add(arc);
 		        				}
 		        				else {
 		        					sommetDepart = new Sommet(ListStation[ListStation.length-1]);
 		        					sommetArrivee = new Sommet(ListStation[1]);
 		        					arc = new Arc(sommetDepart, sommetArrivee, Transport.TRAM);
-		        					sommetDepart.addTrajet(arc);
 		        					listArcTram.add(arc);
 		        				}
 		        			}
-		        			
+		        		*/	
 		        			stations = false;
 		        		}
 		        	}
 			 
 		        	if (qName.equalsIgnoreCase("ligne")) {
 		        		
-		        		for(Arc a : listArcTram) {
-		        			a.getStationDepart().addTrajet(a);
+		        /*		for(Arc a : listArcTram) {
 		        		
 		        			Reseau.addSommet(a.getStationDepart());
 		        			Reseau.addArc(a);
 		        		}
-		        		ligne = false;
+		        */		ligne = false;
 		        	}
 			 
 		        	if (qName.equalsIgnoreCase("heures-passage")) {
 		        		String[] ListHeuresPassage = buffer.toString().split(" ");
-		        		for(int i = 0; i<listArcTram.size(); i++) {
-		        			if(i != (listArcTram.size() - 1 )){
+		        		int firstTemp =0;
+		        		for(int i = 0; i<ListStation.length; i++) {
+		        			if(i != (ListStation.length - 1 )){
+		        				sommetDepart = new Sommet(ListStation[i]);
+	        					sommetArrivee = new Sommet(ListStation[(i+1)]);
 		        				horaire = new Horaire(new Heure(ListHeuresPassage[i]), new Heure(ListHeuresPassage[i+1]));
-		        				listArcTram.get(i).addHoraire(horaire);
+	        					if(i == 0) {
+	        						firstTemp = horaire.getDuree();
+	        					}
+		        				arc = new Arc(sommetDepart, sommetArrivee, horaire, Transport.TRAM);
+		        				Reseau.addArc(arc);
+		        				Reseau.addSommet(sommetDepart);
+		        				Reseau.addSommet(sommetArrivee);
 		        			}
 		        			else {
-		        				horaire = new Horaire(new Heure(ListHeuresPassage[i]), listArcTram.get(0).getHoraires().get(0).getDuree());
-		        				listArcTram.get(0).addHoraire(horaire);
+		        				sommetDepart = new Sommet(ListStation[i]);
+	        					sommetArrivee = new Sommet(ListStation[1]);
+		        				horaire = new Horaire(new Heure(ListHeuresPassage[i]), firstTemp);
+		        				
 		        			}
 		        		}
 		        		heuresPassage = false;
