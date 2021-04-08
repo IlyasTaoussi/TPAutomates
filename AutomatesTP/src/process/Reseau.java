@@ -40,7 +40,6 @@ public class Reseau {
 		for(Arc a : ListArc) {
 			if(a.equals(arc)) {
 				a.updateHoraires(arc.getHoraires());
-				break;
 			}
 			i++;
 		}
@@ -48,7 +47,31 @@ public class Reseau {
 			ListArc.add(arc);
 		}
 	}
-
+	
+	/*
+	public static Sommet addSommet(Sommet sommet) {
+		for(Sommet s : ListSommet) {
+			if(s.equals(sommet)) {
+				s.updateTrajets(sommet.getTrajets());
+				return s;
+			}
+		}
+		ListSommet.add(sommet);
+		return sommet;
+	}
+	
+	public static Arc addArc(Arc arc) {
+		for(Arc a : ListArc) {
+			if(a.equals(arc)) {
+				a.updateHoraires(arc.getHoraires());
+				return a;
+			}
+		}
+		ListArc.add(arc);
+		return arc;
+		
+	}
+	*/
 	public static boolean listArcsContains(Arc arc) {
 		for(Arc a : ListArc) {
 			if(a.equals(arc)) {
@@ -76,4 +99,5 @@ public class Reseau {
 		}
 		return copie;
 	}
+	
 }

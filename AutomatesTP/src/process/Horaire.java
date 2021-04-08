@@ -32,6 +32,11 @@ public class Horaire {
 		
 	}
 	
+	public Horaire(int duree) {
+		super();
+		this.duree = duree;
+	}
+	
 	public Heure getHeureDepart() {
 		return heureDepart;
 	}

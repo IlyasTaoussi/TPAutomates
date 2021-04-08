@@ -22,6 +22,7 @@ public class LectureTXT {
 			int intervaleDepart = 0;
 			Horaire horaire = new Horaire();
 			ArrayList<Horaire> listHoraire;
+			
 			Arc arc = new Arc();
 		    ligne = buffer.readLine();
 		   	if(ligne.startsWith("% métro")) {
@@ -96,12 +97,13 @@ public class LectureTXT {
 			    			Heure heureArrivee = Heure.addDuree(heureDepart, dureeT);
 							horaire = new Horaire(heureDepart, heureArrivee, dureeT);
 							liste.add(horaire);
-							
+							System.out.println(heureDepart);
 							heureDepart = Heure.addDuree(heureDepart, intervaleDepart);
 			    		}
-			    		System.out.println("nothing happens sucka");
+			    		
 			    		System.out.println(liste);
-			    		a.setHoraires(liste);
+			    		a.updateHoraires(liste);
+			    		Reseau.addArc(a);
 			    	}
 			    }
 		    }
@@ -122,6 +124,7 @@ public class LectureTXT {
 			Horaire horaire = new Horaire();
 			Arc arc = new Arc();
 			int duree = 0;
+			ArrayList<String[]> DepArrDur = new ArrayList<String[]>();
 	    	buffer = new BufferedReader(new FileReader("src/resource/InterCites.txt"));
 	    	ligne = buffer.readLine();
 	    		if(ligne.startsWith("% Car")) {
@@ -131,30 +134,29 @@ public class LectureTXT {
 	    				}
 	    				else {
 	    					String[] det = ligne.replaceAll("\\s+", " ").split(" ");
-		    				//System.out.println("Trajet + heure Depart :" + det[0] + " " +  det[1] + " " + det[2]);
-		    				duree = Integer.parseInt(det[2]);
+	    					DepArrDur.add(det);
 	    				}
 	    			}
 	    			System.out.println(" ");
 	    			while((ligne = buffer.readLine()) != null){
 	    				String[] det = ligne.replaceAll("\\s+", " ").split(" ");
-	    				//System.out.println("Trajet + heure Depart :" + det[0] + " " +  det[1] + " " + det[2]);
 	    				sommetDepart = new Sommet(det[0]);
 	    				sommetArrivee = new Sommet(det[1]);
 	    				heureDepart = new Heure(det[2]);
+	    				for(int i =0; i<DepArrDur.size(); i++) {
+	    					if((sommetDepart.getNomStation().equalsIgnoreCase(DepArrDur.get(i)[0]) && sommetArrivee.getNomStation().equalsIgnoreCase(DepArrDur.get(i)[1])) || (sommetDepart.getNomStation().equalsIgnoreCase(DepArrDur.get(i)[1]) && sommetArrivee.getNomStation().equalsIgnoreCase(DepArrDur.get(i)[0]))) {
+	    						duree = Integer.parseInt(DepArrDur.get(i)[2]);
+	    					}
+	    				}
 	    				heureArrivee = Heure.addDuree(heureDepart, duree);
 	    				horaire = new Horaire(heureDepart, heureArrivee, duree);
 	    				arc = new Arc(sommetDepart, sommetArrivee, Transport.CAR);
-	    				//System.out.println(arc);
 	    				arc.addHoraire(horaire);
-	    				//System.out.println(horaire);
 	    				sommetDepart.addTrajet(arc);
-	    				//System.out.println(sommetDepart);
 	    				Reseau.addSommet(sommetDepart);
-	    				//System.out.println(sommetArrivee);
     					Reseau.addSommet(sommetArrivee);
 						Reseau.addArc(arc);
-						//System.out.println(heureArrivee);
+						
     				}
 	    		}
 	    		else {

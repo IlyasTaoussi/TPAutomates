@@ -233,14 +233,14 @@ public class LectureXML {
 		        					sommetDepart = new Sommet(ListStation[i]);
 		        					sommetArrivee = new Sommet(ListStation[(i+1)]);
 		        					arc = new Arc(sommetDepart, sommetArrivee, Transport.TRAM);
-		        				//	sommetDepart.addTrajet(arc);
+		        					sommetDepart.addTrajet(arc);
 		        					listArcTram.add(arc);
 		        				}
 		        				else {
 		        					sommetDepart = new Sommet(ListStation[ListStation.length-1]);
 		        					sommetArrivee = new Sommet(ListStation[1]);
 		        					arc = new Arc(sommetDepart, sommetArrivee, Transport.TRAM);
-		        				//	sommetDepart.addTrajet(arc);
+		        					sommetDepart.addTrajet(arc);
 		        					listArcTram.add(arc);
 		        				}
 		        			}
@@ -264,7 +264,7 @@ public class LectureXML {
 		        		String[] ListHeuresPassage = buffer.toString().split(" ");
 		        		for(int i = 0; i<listArcTram.size(); i++) {
 		        			if(i != (listArcTram.size() - 1 )){
-		        				horaire = new Horaire(new Heure(ListHeuresPassage[i]), new Heure(ListHeuresPassage[i]));
+		        				horaire = new Horaire(new Heure(ListHeuresPassage[i]), new Heure(ListHeuresPassage[i+1]));
 		        				listArcTram.get(i).addHoraire(horaire);
 		        			}
 		        			else {

@@ -7,9 +7,11 @@ public class Main {
 		// TODO Auto-generated method stub
 		try {
 	        
-		//	LectureXML train = new LectureXML("src/resource/train.xml", Transport.TRAIN);
+			LectureXML train = new LectureXML("src/resource/train.xml", Transport.TRAIN);
 			LectureXML tram = new LectureXML("src/resource/tram.xml", Transport.TRAM);
-	     
+			LectureTXT car = new LectureTXT("src/resource/InterCites.txt", Transport.CAR);
+			LectureTXT metro = new LectureTXT("src/resource/metro.txt", Transport.METRO);
+			
 			System.out.println("Liste d'arc : ");
 			for (Arc a : Reseau.getListArc()) {
 				System.out.println(a);
