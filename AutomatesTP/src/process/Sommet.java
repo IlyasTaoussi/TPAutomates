@@ -48,9 +48,7 @@ public class Sommet {
 	}
 
 	public void updateTrajets(ArrayList<Arc> arcs) {
-		for (Arc a : arcs) {
-			this.arcs.add(a);
-		}
+		arcs.forEach(this.arcs :: add);
 	}
 	
 	@Override

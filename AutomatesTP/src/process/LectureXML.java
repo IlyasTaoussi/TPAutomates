@@ -1,6 +1,9 @@
 package process;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
@@ -19,7 +22,9 @@ public class LectureXML {
 	static Heure heureDepart;
 	static Heure heureArrivee;
 	static Horaire horaire;
-	
+	static int line ;
+	static List<Arc> listArcTram;
+	static String[] ListStation;
 	public LectureXML(String path, Transport exploitant) {
 		super();
 	/*	this.path = path;
@@ -78,18 +83,16 @@ public class LectureXML {
 		     
 		 
 		           if (qName.equalsIgnoreCase("junction")) {
-		        	   	arc = new Arc();
 		        	   	junction = true;
 		           }
 		           else {
 		        	   	buffer = new StringBuffer();
 		        	   	if (qName.equalsIgnoreCase("start-station")) {
-		        	   		sommetDepart = new Sommet();
 		        	   		startStation = true;
 		           		}
 		 
 		           		if (qName.equalsIgnoreCase("arrival-station")) {
-		        	   		sommetArrivee = new Sommet();
+		        	   		
 		        	   		arrivalStation = true;
 		           		}
 		           
@@ -106,14 +109,12 @@ public class LectureXML {
 		          une balise fermante '>' */
 		        public void endElement(String uri, String localName,String qName) throws SAXException {
 		        	
-			           if (qName.equalsIgnoreCase("/junction")) {
-			        	   arc.setStationDepart(sommetDepart);
-			        	   arc.setStationArrivee(sommetArrivee);
+			           if (qName.equalsIgnoreCase("junction")) {
+			        	   arc = new Arc(sommetDepart, sommetArrivee, Transport.TRAIN);
 			        	   arc.addHoraire(horaire);
 			        	   sommetDepart.addTrajet(arc);
 			        	   Reseau.addSommet(sommetDepart);
 			        	   Reseau.addArc(arc);
-			        	   
 			        	   
 			        	   
 			        	   heureDepart = null;
@@ -125,28 +126,27 @@ public class LectureXML {
 			        	   junction = false;
 			           }
 			 
-			           if (qName.equalsIgnoreCase("/start-station")) {
-			        	   sommetDepart.setNomStation(buffer.toString());
-			        	   Reseau.addSommet(sommetDepart);
-			        	   System.out.println(sommetDepart);
+			           if (qName.equalsIgnoreCase("start-station")) {
+			        	   sommetDepart = new Sommet(buffer.toString());
+			        	   
 			        	   buffer = null;
 			        	   startStation = false;
 			           }
 			 
-			           if (qName.equalsIgnoreCase("/arrival-station")) {
-			        	   sommetArrivee.setNomStation(buffer.toString());
-			        	   Reseau.addSommet(sommetArrivee);
-			        	   System.out.println(sommetArrivee);
+			           if (qName.equalsIgnoreCase("arrival-station")) {
+			        	   sommetArrivee = new Sommet(buffer.toString());
+			        	   
+			        	   
 			        	   buffer = null;
 			        	   arrivalStation = false;
 			           }
 			           
-			           if (qName.equalsIgnoreCase("/start-hour")) {
+			           if (qName.equalsIgnoreCase("start-hour")) {
 			        	   heureDepart = new Heure(buffer.toString());
 			        	   startHour = false;
 			           }
 				 
-			           if (qName.equalsIgnoreCase("/arrival-hour")) {
+			           if (qName.equalsIgnoreCase("arrival-hour")) {
 			        	   heureArrivee = new Heure(buffer.toString());
 			        	   horaire = new Horaire(heureDepart, heureArrivee, heureDepart.getDuree(heureArrivee));
 			        	   
@@ -203,57 +203,103 @@ public class LectureXML {
 		          une balise ouvrante '<' */
 		        public void startElement(String uri, String localName,
 		               String qName,Attributes attributes) throws SAXException{
+		        	buffer = new StringBuffer();
+		        	if (qName.equalsIgnoreCase("stations")) {
+		        		stations = true;
+		        	}
 		 
-		           if (qName.equalsIgnoreCase("stations")) {
-		             stations = true;
-		           }
+		        	if (qName.equalsIgnoreCase("ligne")) {
+		        		
+		        		ligne = true;
+		        		
+		        	}
 		 
-		           if (qName.equalsIgnoreCase("ligne")) {
-		             ligne = true;
-		           }
-		 
-		           if (qName.equalsIgnoreCase("heures-passage")) {
-		             heuresPassage = true;
-		           }
+		        	if (qName.equalsIgnoreCase("heures-passage")) {
+		        		heuresPassage = true;
+		        	}
 		           
 		        }
 		 
 		        /*cette méthode est invoquée à chaque fois que parser rencontre
 		          une balise fermante '>' */
 		        public void endElement(String uri, String localName,String qName) throws SAXException {
-		        	if (qName.equalsIgnoreCase("/stations")) {
-			             stations = true;
-			           }
+		        	if (qName.equalsIgnoreCase("stations")) {
+		        		if(line != 0) {
+		        			ListStation = null;
+		        			listArcTram = new ArrayList<>();
+		        			ListStation = buffer.toString().split(" ");
+		        			for(int i=0; i<ListStation.length; i++) {
+		        				if(i != (ListStation.length-1)) {
+		        					sommetDepart = new Sommet(ListStation[i]);
+		        					sommetArrivee = new Sommet(ListStation[(i+1)]);
+		        					arc = new Arc(sommetDepart, sommetArrivee, Transport.TRAM);
+		        				//	sommetDepart.addTrajet(arc);
+		        					listArcTram.add(arc);
+		        				}
+		        				else {
+		        					sommetDepart = new Sommet(ListStation[ListStation.length-1]);
+		        					sommetArrivee = new Sommet(ListStation[1]);
+		        					arc = new Arc(sommetDepart, sommetArrivee, Transport.TRAM);
+		        				//	sommetDepart.addTrajet(arc);
+		        					listArcTram.add(arc);
+		        				}
+		        			}
+		        			
+		        			stations = false;
+		        		}
+		        	}
 			 
-			           if (qName.equalsIgnoreCase("/ligne")) {
-			             ligne = true;
-			           }
+		        	if (qName.equalsIgnoreCase("ligne")) {
+		        		
+		        		for(Arc a : listArcTram) {
+		        			a.getStationDepart().addTrajet(a);
+		        		
+		        			Reseau.addSommet(a.getStationDepart());
+		        			Reseau.addArc(a);
+		        		}
+		        		ligne = false;
+		        	}
 			 
-			           if (qName.equalsIgnoreCase("/heures-passage")) {
-			             heuresPassage = true;
-			           }
+		        	if (qName.equalsIgnoreCase("heures-passage")) {
+		        		String[] ListHeuresPassage = buffer.toString().split(" ");
+		        		for(int i = 0; i<listArcTram.size(); i++) {
+		        			if(i != (listArcTram.size() - 1 )){
+		        				horaire = new Horaire(new Heure(ListHeuresPassage[i]), new Heure(ListHeuresPassage[i]));
+		        				listArcTram.get(i).addHoraire(horaire);
+		        			}
+		        			else {
+		        				horaire = new Horaire(new Heure(ListHeuresPassage[i]), listArcTram.get(0).getHoraires().get(0).getDuree());
+		        				listArcTram.get(0).addHoraire(horaire);
+		        			}
+		        		}
+		        		heuresPassage = false;
+		        	}
 		        }
 
 		        /*imprime les données stockées entre '<' et '>' */
 		        public void characters(char ch[], int start, int length) throws SAXException {
-		        	if (stations) {
+		        	 
+		        	/*if (stations) {
 			             System.out.println("Stations : " + 
 			                    new String(ch, start, length));
-			             stations = true;
+			             stations = false;
 		        	}
-			   
+			   		*/
 		        	if (ligne) {
-		             System.out.println("Ligne : " + 
-		                    new String(ch, start, length));
-		             ligne = false;
+		        		line = Integer.parseInt(new String(ch, start, length).replaceAll("\\s+", ""));
+		        		ligne = false;
 		           	}
-		        	
+		        	else {
+		        		String lecture = new String(ch,start,length);
+			        	if(buffer != null) buffer.append(lecture);
+		        	}
+		        	/*
 		           	if (heuresPassage) {
-		             System.out.println("Heures de passage : " + 
+		           		System.out.println("Heures de passage : " + 
 		                     new String(ch, start, length));
-		             heuresPassage = false;
+		           		heuresPassage = false;
 		           	}
-		 
+		 			*/
 		        }
 		 
 		    };

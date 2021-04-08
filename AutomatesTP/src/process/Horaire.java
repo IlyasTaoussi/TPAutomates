@@ -17,6 +17,21 @@ public class Horaire {
 		this.duree = duree;
 	}
 	
+	public Horaire(Heure heureDepart, Heure heureArrivee) {
+		super();
+		this.heureDepart = heureDepart;
+		this.heureArrivee = heureArrivee;
+		this.duree = this.heureDepart.getDuree(this.heureArrivee);
+	}
+	
+	public Horaire(Heure heureDepart, int duree) {
+		super();
+		this.heureDepart = heureDepart;
+		this.duree = duree;
+		this.heureArrivee = Heure.addDuree(heureDepart, duree);
+		
+	}
+	
 	public Heure getHeureDepart() {
 		return heureDepart;
 	}

@@ -7,9 +7,10 @@ public class Main {
 		// TODO Auto-generated method stub
 		try {
 	        
-	       LectureXML train = new LectureXML("src/resource/train.xml", Transport.TRAIN);
-	       
-	     	System.out.println("Liste d'arc : ");
+		//	LectureXML train = new LectureXML("src/resource/train.xml", Transport.TRAIN);
+			LectureXML tram = new LectureXML("src/resource/tram.xml", Transport.TRAM);
+	     
+			System.out.println("Liste d'arc : ");
 			for (Arc a : Reseau.getListArc()) {
 				System.out.println(a);
 			}
@@ -17,7 +18,7 @@ public class Main {
 			for (Sommet s : Reseau.getListSommet()) {
 				System.out.println(s);
 			}
-	 
+	 	
 	     } catch (Exception e) {System.err.println("Il Faut Vraiemnt trouver une solution pour le xml goddamnit");
 	     }
 	}
