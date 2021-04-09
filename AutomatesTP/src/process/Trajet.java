@@ -4,7 +4,10 @@ import java.util.ArrayList;
 
 public class Trajet {
 	
-	
+	/*
+	 * @param stationDepart , stationArrivee , heureDepart
+	 * methode de recherche du trajet entre la stationDepart et stationArrivee dont horaire est le plus proche de heureDepart  
+	 */
 	public static Arc getClosestPath(Sommet stationDepart, Sommet stationArrivee, Heure heureDepart) {
 		Arc plusCourt = null;
 		for(Arc a : Reseau.getListArc()) {
@@ -24,10 +27,15 @@ public class Trajet {
 		}
 		return plusCourt;
 	}
-	
+	/*
+	 * @param stationDepart , heureDepart
+	 * Methode qui donne tous les trajets possibles à faire depuis la stationDepart , 
+	 * tel que l'horaire est le plus proche et disponible selon heureDepart
+	 *  
+	 */
 	public static ArrayList<Arc> getAllClosestPaths(Sommet stationDepart, Heure heureDepart){
-		ArrayList<Sommet> reachable = new ArrayList<>();
-		ArrayList<Arc> closest = new ArrayList<>();
+		ArrayList<Sommet> reachable = new ArrayList<>(); //les stations atteignables
+		ArrayList<Arc> closest = new ArrayList<>(); // liste des trajets possibles
 		for(Arc a: Reseau.getListArc()) {
 			if(a.getStationDepart().equals(stationDepart)) {
 				if(!reachable.contains(a.getStationArrivee())) {
@@ -41,7 +49,11 @@ public class Trajet {
 		}
 		return closest;
 	}
-	
+	/*
+	 * @param stationDepart, stationarrivee, visited , heureDepart
+	 * Methode qui donne tous les chemins et trajets possibles pour aller de stationDepart à stationArrivee
+	 * le @Param visited contient les stations deja visitées à ne pas visiter aprés
+	 */
 	public static ArrayList<ArrayList<Arc>> setAllChemins(Sommet stationDepart, Sommet stationArrivee, ArrayList<String> visited, Heure heureDepart) {
 		ArrayList<ArrayList<Arc>> chemins = new ArrayList<>() ;
 		ArrayList<ArrayList<Arc>> chemin = new ArrayList<>();
@@ -76,6 +88,11 @@ public class Trajet {
 		return chemins;
 	}
 	
+	/*
+	 * @Param chemins
+	 * Methode qui calcule la durée totale de chaque chemin dans la liste renvoyée par setAllChemins()
+	 * Elle renvoie le chemin le plus court demandé 
+	 */
 	public static ArrayList<Arc> plusCourtChemin(ArrayList<ArrayList<Arc>> chemins){
 		int dureeMin = Integer.MAX_VALUE ,duree ;
 		Heure limite = new Heure("2359");
