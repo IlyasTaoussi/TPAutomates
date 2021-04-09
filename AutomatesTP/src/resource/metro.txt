@@ -1,6 +1,6 @@
 % métro
 %stations
-Gare Avlon Syen Ecole Parc 
+Gare Avlon Syen Ecole Parc
 
 %liaisons
 %depart arrivee duree

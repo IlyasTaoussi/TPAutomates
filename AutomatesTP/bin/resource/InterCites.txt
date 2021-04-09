@@ -3,10 +3,10 @@
 %
 % liste des liaisons :
 % depart arrivee duree-trajet
-%	
+%
 % liste d'horaires :
 % depart arrivee heure-depart
-% 
+%
 Limo		Syen		35
 Syen		Singha		30
 Singha		Avlon		25
