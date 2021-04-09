@@ -28,6 +28,7 @@ public class Main {
 			System.out.println("2 - Exit");
 			choix = scan.nextInt();
 			if(choix == 1) {
+				scan = new Scanner(System.in);
 				System.out.println("Entrer Votre Station de Depart :");
 				String depart = scan.nextLine();
 				Sommet sommetDepart = Reseau.getSommet(depart);
@@ -45,15 +46,17 @@ public class Main {
 				System.out.println("Entrer Votre Horaire de Depart (sous la forme hhmm) :");
 				String heure = scan.nextLine();
 				Heure heureDepart = new Heure(heure);
+				scan.close();
 				ArrayList<ArrayList<Arc>> chemins = Trajet.setAllChemins(sommetDepart, sommetArrivee, new ArrayList<String>(), heureDepart);
 				ArrayList<Arc> plusCourt = Trajet.plusCourtChemin(chemins);
 				System.out.println("Chemin à Suivre : ");
-				for(Arc arc: plusCourt) {
-					System.out.println(arc);
+				for(int i = plusCourt.size()-1 ; i>= 0; i--) {
+					System.out.println(plusCourt.get(i));
 				}
+				
 			}
 			if(choix != 1 && choix != 2) {
-				System.out.println("Go Fuck yourself madafaka");
+				System.out.println("Choix Introuvable ");
 				System.exit(0);
 			}
 			
