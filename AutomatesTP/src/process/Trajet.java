@@ -1,5 +1,11 @@
 package process;
 
+/*
+ * @author Ilyas Taoussi , Lilian Tantot
+ * @version 1.0 
+ * 
+ */
+
 import java.util.ArrayList;
 
 public class Trajet {
