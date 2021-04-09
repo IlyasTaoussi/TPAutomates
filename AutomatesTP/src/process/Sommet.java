@@ -1,5 +1,11 @@
 package process;
 
+/*
+ * @author Ilyas Taoussi , Lilian Tantot
+ * @version 1.0 
+ * 
+ */
+
 public class Sommet {
 	private String nomStation;
 	
@@ -30,7 +36,8 @@ public class Sommet {
 		result = prime * result + ((nomStation == null) ? 0 : nomStation.hashCode());
 		return result;
 	}
-
+	
+	//Méthode servant à dire si 2 Sommets sont égaux
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -48,7 +55,8 @@ public class Sommet {
 			return false;
 		return true;
 	}
-
+	
+	//Méthode d'affichage d'une Horaire
 	@Override
 	public String toString() {
 		return "Sommet [nomStation=" + nomStation +"]";
