@@ -139,7 +139,6 @@ public class LectureTXT {
 		    	System.exit(0);
 		   	}		    	
 		    buffer.close();
-		    System.out.println("Fichier métro.txt valide"); //si le fichier est bien conforme on affiche fichier valide
 		}	
 		
 		//Lecture du fichier InterCites
@@ -233,7 +232,6 @@ public class LectureTXT {
 	    			System.exit(0);
 	    		}
 	    	buffer.close();
-	    	System.out.println("Fichier InterCites.txt valide"); //Si le fichier est conforme on affiche fichier valide
 		}
 		}catch(Exception e) {
 			e.printStackTrace();
