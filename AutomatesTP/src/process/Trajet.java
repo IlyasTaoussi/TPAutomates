@@ -14,7 +14,7 @@ public class Trajet {
 	public static Arc getClosestPath(Sommet stationDepart, Sommet stationArrivee, Heure heureDepart) {
 		Arc plusCourt = null;
 		for(Arc a : Reseau.getListArc()) {
-			if(a.getStationDepart().equals(stationDepart) && a.getStationArrivee().equals(stationArrivee) && (a.getHoraire().getHeureDepart().plusGrandQue(heureDepart)) || a.getHoraire().getHeureDepart().equals(heureDepart)) {
+			if(a.getStationDepart().equals(stationDepart) && a.getStationArrivee().equals(stationArrivee) && ((a.getHoraire().getHeureDepart().plusGrandQue(heureDepart)) || a.getHoraire().getHeureDepart().equals(heureDepart))) {
 				plusCourt = a;
 				break;
 			}
@@ -50,10 +50,10 @@ public class Trajet {
 	
 	public static ArrayList<ArrayList<Arc>> setAllChemins(Sommet stationDepart, Sommet stationArrivee, ArrayList<String> visited, Heure heureDepart) {
 		ArrayList<ArrayList<Arc>> chemins = new ArrayList<>() ;
-		ArrayList<ArrayList<Arc>> chemin;
+		ArrayList<ArrayList<Arc>> chemin = new ArrayList<>();
 		
 		if(stationDepart.equals(stationArrivee)) {
-			return null;
+			return chemin;
 		}
 		
 		ArrayList<Arc> closest = getAllClosestPaths(stationDepart, heureDepart);
@@ -80,5 +80,27 @@ public class Trajet {
 			return chemins;
 		}
 		return chemins;
+	}
+	
+	public static ArrayList<Arc> plusCourtChemin(ArrayList<ArrayList<Arc>> chemins){
+		int dureeMax = Integer.MAX_VALUE ,duree ;
+		Heure limite = new Heure("2330");
+		ArrayList<Arc> meilleur = new ArrayList<>();
+		for(var chemin: chemins) {
+			duree = 0;
+			for(Arc arc : chemin) {
+				if(!arc.getHoraire().getHeureArrivee().plusGrandQue(limite)) {
+					duree = duree + arc.getHoraire().getDuree();
+				}
+				else {
+					break;
+				}
+			}
+			if(duree < dureeMax) {
+				dureeMax = duree;
+				meilleur = chemin;
+			}
+		}
+		return meilleur;
 	}
 }

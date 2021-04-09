@@ -51,7 +51,7 @@ public class LectureXML {
             Schema schema = factory.newSchema(schemaFile);
             Validator validator = schema.newValidator();
             validator.validate(new StreamSource(new File(path)));
-			
+			System.out.println("Fichier " + path.replace("src/resource/", "") + " valide");
 			this.setDefaultHandler(exploitant);
 			
 	        SAXParserFactory spfactory = SAXParserFactory.newInstance();
@@ -60,7 +60,8 @@ public class LectureXML {
 	        saxParser.parse(path, handlerXML);
 	 
 	     } catch (Exception e) {
-	       e.printStackTrace();
+	    	 System.err.println("Probleme de Parsing !! Voir le StackTrace pour la source du probléme :");
+	    	 e.printStackTrace();
 	     }
 	}
 	
