@@ -60,8 +60,9 @@ public class LectureXML {
 	        saxParser.parse(path, handlerXML);
 	 
 	     } catch (Exception e) {
-	    	 System.err.println("Probleme de Parsing !! Voir le StackTrace pour la source du probléme :");
+	    	 System.err.println("Probleme de Lecture ou Parsing !! Voir le StackTrace pour la source du probléme :");
 	    	 e.printStackTrace();
+	    	 System.exit(0);
 	     }
 	}
 	

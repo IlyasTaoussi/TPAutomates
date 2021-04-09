@@ -27,20 +27,15 @@ public class LectureTXT {
 		try {
 			//liste des stations de métro
 		ArrayList<String> stationsMetro = new ArrayList<String>(); 
-			stationsMetro.add("Gare");
-			stationsMetro.add("Avlon");
-			stationsMetro.add("Syen");
-			stationsMetro.add("Ecole");
-			stationsMetro.add("Parc");
 			//liste des stations de car inter-cité
 		ArrayList<String> stationsCar = new ArrayList<String>();
-			stationsCar.add("Limo");
+		/*	stationsCar.add("Limo");
 			stationsCar.add("Syen");
 			stationsCar.add("Singha");
 			stationsCar.add("Avlon");
 			stationsCar.add("Neuville");
 			stationsCar.add("Gare");
-			
+		*/	
 		buffer = new BufferedReader(new FileReader(path));
 		
 		//Lecture fichier metro.txt
@@ -62,13 +57,7 @@ public class LectureTXT {
 		    		if(ligne.startsWith("%stations")) {
 		  				ligne = buffer.readLine();
 		  				for (int i = 0; i < ligne.split(" ").length; i++) {
-							if (stationsMetro.contains(ligne.split(" ")[i])) {
-								//System.out.println("Stations "+(i+1)+ " correcte");
-							}
-							else {
-								System.err.println("Stations "+(i+1)+ " incorrecte");
-								System.exit(0);
-							}
+							stationsMetro.add(ligne.split(" ")[i]);
 						}
 		    		}
 		    		
@@ -200,9 +189,15 @@ public class LectureTXT {
 	    				}
 	    				else {
     						String[] det = ligne.replaceAll("\\s+", " ").split(" ");
-	    					if (stationsCar.contains(det[0]) && stationsCar.contains(det[1]) && isInt(det[2])) {
-	    						DepArrDur.add(det);
-	    					}
+    						if(isInt(det[2])) {
+    							DepArrDur.add(det);
+    							if(!(stationsCar.contains(det[0]))){
+    								stationsCar.add(det[0]);
+    							}
+    							if(!(stationsCar.contains(det[1]))){
+    								stationsCar.add(det[1]);
+    							}
+    						}
 	    					else {
 	    						System.out.println("Veuillez entrer un trajet de car inter-cité et une durée sous la forme : mm");
 	    						System.exit(0);

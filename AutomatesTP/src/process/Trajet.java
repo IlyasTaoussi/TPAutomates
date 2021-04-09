@@ -1,7 +1,6 @@
 package process;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Trajet {
 	
@@ -83,7 +82,7 @@ public class Trajet {
 	}
 	
 	public static ArrayList<Arc> plusCourtChemin(ArrayList<ArrayList<Arc>> chemins){
-		int dureeMax = Integer.MAX_VALUE ,duree ;
+		int dureeMin = Integer.MAX_VALUE ,duree ;
 		Heure limite = new Heure("2330");
 		ArrayList<Arc> meilleur = new ArrayList<>();
 		for(var chemin: chemins) {
@@ -96,8 +95,8 @@ public class Trajet {
 					break;
 				}
 			}
-			if(duree < dureeMax) {
-				dureeMax = duree;
+			if(duree < dureeMin) {
+				dureeMin = duree;
 				meilleur = chemin;
 			}
 		}

@@ -16,7 +16,7 @@ public class Main {
 			Sommet sommetDepart = Reseau.getSommet("Syen");
 			Sommet sommetArrive = Reseau.getSommet("Gare");
 			Heure heureDepart = new Heure("0800");
-			ArrayList<ArrayList<Arc>> chemins = Trajet.setAllChemins(sommetDepart, sommetArrive, new ArrayList<String>(),  heureDepart);
+	//		ArrayList<ArrayList<Arc>> chemins = Trajet.setAllChemins(sommetDepart, sommetArrive, new ArrayList<String>(),  heureDepart);
 	//		System.out.println(chemins);
 	//		System.out.println(chemins.size());
 	/*		for(int j = 0; j<chemins.size(); j++) {
@@ -24,8 +24,9 @@ public class Main {
 					System.out.println(chemins.get(j).get(i));}
 				System.err.println("  ");
 			}
-	*/		System.out.println(Trajet.plusCourtChemin(chemins));
-	  	} catch (Exception e) {
+			System.out.println(Trajet.plusCourtChemin(chemins));
+	*/  	
+			} catch (Exception e) {
 	    	 e.printStackTrace();
 	     }
 	}
