@@ -2,6 +2,8 @@ package process;
 
 import java.util.ArrayList;
 
+import javax.management.AttributeNotFoundException;
+
 public class Reseau {
 	private static ArrayList<Sommet> ListSommet = new ArrayList<>();
 	private static ArrayList<Arc> ListArc = new ArrayList<>();
@@ -40,31 +42,16 @@ public class Reseau {
 		ListArc.add(arc);
 		return arc;
 	}
-	
-	/*
-	public static Sommet addSommet(Sommet sommet) {
+
+	public static Sommet getSommet(String sommet) {
 		for(Sommet s : ListSommet) {
-			if(s.equals(sommet)) {
-				s.updateTrajets(sommet.getTrajets());
+			if(s.getNomStation().equals(sommet)) {
 				return s;
 			}
 		}
-		ListSommet.add(sommet);
-		return sommet;
+		return null;
 	}
 	
-	public static Arc addArc(Arc arc) {
-		for(Arc a : ListArc) {
-			if(a.equals(arc)) {
-				a.updateHoraires(arc.getHoraires());
-				return a;
-			}
-		}
-		ListArc.add(arc);
-		return arc;
-		
-	}
-	*/
 	public static boolean listArcsContains(Arc arc) {
 		for(Arc a : ListArc) {
 			if(a.equals(arc)) {
@@ -93,4 +80,20 @@ public class Reseau {
 		return copie;
 	}
 	
+	public static ArrayList<ArrayList<Arc>> append(ArrayList<ArrayList<Arc>> chemins, Arc arc){
+        if(chemins == null) {
+        	return null;
+        }
+        if(chemins.size() == 0){
+        	ArrayList<Arc> n = new ArrayList<Arc>();
+        	n.add(arc);
+            chemins.add(n);
+        }
+        else{
+            for(ArrayList<Arc> c : chemins){
+                c.add(arc);
+            }
+        }
+        return chemins;
+    }
 }

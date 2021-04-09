@@ -25,7 +25,14 @@ public class Arc implements Cloneable{
 		this.horaire = horaire;
 		this.transport = transport;
 	}
-
+	
+	public Arc(Sommet stationDepart, Sommet stationArrivee) {
+		super();
+		this.stationDepart = stationDepart;
+		this.stationArrivee = stationArrivee;
+		this.horaire = new Horaire(new Heure(), new Heure());
+	}
+	
 	public Sommet getStationDepart() {
 		return stationDepart;
 	}
