@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Main {
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings({ "unused", "resource" })
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try {
@@ -28,6 +28,7 @@ public class Main {
 			System.out.println("2 - Exit");
 			choix = scan.nextInt();
 			if(choix == 1) {
+				
 				scan = new Scanner(System.in);
 				System.out.println("Entrer Votre Station de Depart :");
 				String depart = scan.nextLine();
