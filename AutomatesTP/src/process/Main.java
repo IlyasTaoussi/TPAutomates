@@ -1,17 +1,15 @@
 package process;
 
-import java.util.ArrayList;
-
 public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try {
 	        
-			LectureXML train = new LectureXML("src/resource/train.xml", Transport.TRAIN);
-			LectureXML tram = new LectureXML("src/resource/tram.xml", Transport.TRAM);
-			LectureTXT car = new LectureTXT("src/resource/InterCites.txt", Transport.CAR);
-			LectureTXT metro = new LectureTXT("src/resource/metro.txt", Transport.METRO);
+			//LectureXML train = new LectureXML("src/resource/train.xml", Transport.TRAIN);
+			//LectureXML tram = new LectureXML("src/resource/tram.xml", Transport.TRAM);
+			//LectureTXT car = new LectureTXT("src/resource/InterCites.txt", Transport.CAR);
+			//LectureTXT metro = new LectureTXT("src/resource/metro.txt", Transport.METRO);
 		
 			Sommet sommetDepart = Reseau.getSommet("Syen");
 			Sommet sommetArrive = Reseau.getSommet("Gare");

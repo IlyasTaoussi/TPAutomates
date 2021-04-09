@@ -1,8 +1,12 @@
 package process;
 
-import java.util.ArrayList;
+/*
+ * @author Ilyas Taoussi , Lilian Tantot
+ * @version 1.0 
+ * 
+ */
 
-import javax.management.AttributeNotFoundException;
+import java.util.ArrayList;
 
 public class Reseau {
 	private static ArrayList<Sommet> ListSommet = new ArrayList<>();
@@ -23,6 +27,7 @@ public class Reseau {
 		ListArc = listArc;
 	}
 	
+	//Méthode permettant d'ajouter un Sommet en testant avant si ce sommet est déjà présent dans ListSommet
 	public static Sommet addSommet(Sommet sommet) {
 		for(Sommet s : ListSommet) {
 			if(s.equals(sommet)) {
@@ -33,6 +38,7 @@ public class Reseau {
 		return sommet;
 	}
 	
+	//Méthode permettant d'ajouter un Arc en testant avant si cet arc est déjà présent dans ListArc
 	public synchronized static Arc addArc(Arc arc) {
 		for(Arc a : ListArc) {
 			if(a.equals(arc)) {
@@ -52,6 +58,7 @@ public class Reseau {
 		return null;
 	}
 	
+	//Méthode testant si ListArc contient un arc donnée en argument
 	public static boolean listArcsContains(Arc arc) {
 		for(Arc a : ListArc) {
 			if(a.equals(arc)) {
@@ -62,6 +69,7 @@ public class Reseau {
 		return false;
 	}
 	
+	//Méthode testant si ListSommet contient un sommet donnée en argument
 	public static boolean listSommetsContains(Sommet sommet) {
 		for(Sommet s : ListSommet) {
 			if(s.equals(sommet)) {
@@ -72,6 +80,7 @@ public class Reseau {
 		return false;
 	}
 	
+	//Méthode servant a faire une copie d'une liste d'arcs
 	public static ArrayList<Arc> cloneListArc() throws CloneNotSupportedException {
 		ArrayList<Arc> copie = new ArrayList<>();
 		for(Arc a : ListArc) {
@@ -80,6 +89,7 @@ public class Reseau {
 		return copie;
 	}
 	
+	//Méthode servant à ajouter des arcs dans une liste de liste d'arcs
 	public static ArrayList<ArrayList<Arc>> append(ArrayList<ArrayList<Arc>> chemins, Arc arc){
         if(chemins == null) {
         	return null;

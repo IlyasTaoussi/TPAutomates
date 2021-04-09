@@ -1,5 +1,11 @@
 package process;
 
+/*
+ * @author Ilyas Taoussi , Lilian Tantot
+ * @version 1.0 
+ * 
+ */
+
 public class Horaire {
 	private Heure heureDepart;
 	private Heure heureArrivee;
@@ -17,6 +23,7 @@ public class Horaire {
 		this.duree = duree;
 	}
 	
+	//Constructeur prenant en entrée un Heure de départ et une Heure d'arrivée, qui calcule la durée et la stocke
 	public Horaire(Heure heureDepart, Heure heureArrivee) {
 		super();
 		this.heureDepart = heureDepart;
@@ -24,6 +31,7 @@ public class Horaire {
 		this.duree = this.heureDepart.getDuree(this.heureArrivee);
 	}
 	
+	//Constructeur prenant en entrée un Heure de départ et une durée, qui calcule l'Heure d'arrivée et la stocke
 	public Horaire(Heure heureDepart, int duree) {
 		super();
 		this.heureDepart = heureDepart;
@@ -55,7 +63,8 @@ public class Horaire {
 	public void setDuree(int duree) {
 		this.duree = duree;
 	}
-
+	
+	//Méthode d'affichage d'une Horaire
 	@Override
 	public String toString() {
 		return "Horaire [heureDepart=" + heureDepart + ", heureArrivee=" + heureArrivee + ", duree=" + duree + "]";
@@ -70,7 +79,8 @@ public class Horaire {
 		result = prime * result + ((heureDepart == null) ? 0 : heureDepart.hashCode());
 		return result;
 	}
-
+	
+	//Méthode servant à dire si 2 Horaires sont égales
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

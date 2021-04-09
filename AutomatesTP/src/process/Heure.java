@@ -1,9 +1,16 @@
 package process;
 
+/*
+ * @author Ilyas Taoussi , Lilian Tantot
+ * @version 1.0 
+ * 
+ */
+
 public class Heure {
 	private int heures;
 	private int minutes;
 	
+	//Constructeur qui prend en entrée une horaire en chaine de caractere et qui permet de créer une heure composé de 2 entier heures et minutes 
 	public Heure(String horaire) {
 		this.heures = Integer.parseInt(Character.toString(horaire.charAt(0))+Character.toString(horaire.charAt(1)));
 		this.minutes = Integer.parseInt(Character.toString(horaire.charAt(2))+Character.toString(horaire.charAt(3)));
@@ -39,7 +46,7 @@ public class Heure {
 		this.minutes = minutes;
 	}
 
-
+	//Méthode permettant de gérer un système horaire pour en pas se retrouver avec des heures comme 25h72
 	public void setHorloge() {
 		if(this.minutes >= 60) {
 			this.minutes = this.minutes - 60;
@@ -50,20 +57,24 @@ public class Heure {
 		}
 	}
 	
+	//Méthode permettant de transformer une Heure en minute
 	public int heureToDuree() {
 		return this.getMinutes() + this.getHeures()*60;
 	}
 	
+	//Méthode permettant d'additionner une durée en minute à une Heure
 	public static Heure addDuree(Heure depart ,int duree) {
 		Heure arrivee = new Heure(depart.getHeures(), depart.getMinutes()+duree);
 		arrivee.setHorloge();
 		return arrivee;
 	}
 	
+	//Méthode permettant de calculer une durée a partir d'une heure de départ et d'une heure d'arrivée 
 	public int getDuree(Heure arrivee) {
 		return arrivee.heureToDuree() - this.heureToDuree();
 	}
 	
+	//Méthode faisant la comparaison entre 2 Heures (retourne true si c'est plus grand)
 	public Boolean plusGrandQue(Heure h) {
 		if (this.getHeures() > h.getHeures()) {
 			return true;
@@ -74,6 +85,7 @@ public class Heure {
 		return false;
 	}
 	
+	//Méthode d'affichage d'une Heure
 	@Override
 	public String toString() {
 		if(minutes < 10)
@@ -91,7 +103,7 @@ public class Heure {
 		return result;
 	}
 
-
+	//Méthode servant à dire si 2 Heures sont égales
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
