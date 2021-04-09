@@ -4,11 +4,6 @@ import java.util.ArrayList;
 
 public class Trajet {
 	
-	ArrayList<ArrayList<Arc>> trajets = new ArrayList<>();
-	
-	public Trajet() {
-		super();
-	}
 	
 	public static Arc getClosestPath(Sommet stationDepart, Sommet stationArrivee, Heure heureDepart) {
 		Arc plusCourt = null;
@@ -83,13 +78,23 @@ public class Trajet {
 	
 	public static ArrayList<Arc> plusCourtChemin(ArrayList<ArrayList<Arc>> chemins){
 		int dureeMin = Integer.MAX_VALUE ,duree ;
-		Heure limite = new Heure("2330");
+		Heure limite = new Heure("2359");
+		Heure arrive = new Heure();
 		ArrayList<Arc> meilleur = new ArrayList<>();
 		for(var chemin: chemins) {
 			duree = 0;
 			for(Arc arc : chemin) {
 				if(!arc.getHoraire().getHeureArrivee().plusGrandQue(limite)) {
-					duree = duree + arc.getHoraire().getDuree();
+					
+					if(duree == 0) {
+						duree = duree + arc.getHoraire().getDuree();
+						arrive = arc.getHoraire().getHeureArrivee();
+					}
+					else {
+						duree = duree + arrive.getDuree(arc.getHoraire().getHeureDepart());
+						duree = duree + arc.getHoraire().getDuree();
+						arrive = arc.getHoraire().getHeureArrivee();
+					}
 				}
 				else {
 					break;

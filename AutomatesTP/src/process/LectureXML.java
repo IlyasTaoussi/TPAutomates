@@ -41,10 +41,10 @@ public class LectureXML {
 			
 			this.path = path;
 			if(path.equals("src/resource/train.xml")) {
-				schemaFile = new File("src/resource/train.xsd");
+				schemaFile = new File("src/XmlSchema/train.xsd");
 			}
 			else if(path.equals("src/resource/tram.xml")){
-				schemaFile = new File("src/resource/tram.xsd");
+				schemaFile = new File("src/XmlSchema/tram.xsd");
 			}
 			SchemaFactory factory = 
                     SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
