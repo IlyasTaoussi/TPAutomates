@@ -1,29 +1,58 @@
 package process;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Main {
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try {
 	        
-			//LectureXML train = new LectureXML("src/resource/train.xml", Transport.TRAIN);
-			//LectureXML tram = new LectureXML("src/resource/tram.xml", Transport.TRAM);
-			//LectureTXT car = new LectureTXT("src/resource/InterCites.txt", Transport.CAR);
-			//LectureTXT metro = new LectureTXT("src/resource/metro.txt", Transport.METRO);
-		
-			Sommet sommetDepart = Reseau.getSommet("Syen");
-			Sommet sommetArrive = Reseau.getSommet("Gare");
-			Heure heureDepart = new Heure("0800");
-	//		ArrayList<ArrayList<Arc>> chemins = Trajet.setAllChemins(sommetDepart, sommetArrive, new ArrayList<String>(),  heureDepart);
-	//		System.out.println(chemins);
-	//		System.out.println(chemins.size());
-	/*		for(int j = 0; j<chemins.size(); j++) {
-				for(int i = chemins.get(j).size()-1; i>=0; i--) {
-					System.out.println(chemins.get(j).get(i));}
-				System.err.println("  ");
+			LectureXML train = new LectureXML("src/resource/train.xml", Transport.TRAIN);
+			LectureXML tram = new LectureXML("src/resource/tram.xml", Transport.TRAM);
+			LectureTXT car = new LectureTXT("src/resource/InterCites.txt", Transport.CAR);
+			LectureTXT metro = new LectureTXT("src/resource/metro.txt", Transport.METRO);
+			
+			Scanner scan = new Scanner(System.in);
+			int choix;
+			System.out.println("Choisir Une Operation :");
+			System.out.println("1 - Plus Court Chemin");
+			System.out.println("2 - Exit");
+			choix = scan.nextInt();
+			if(choix == 1) {
+				System.out.println("Entrer Votre Station de Depart :");
+				String depart = scan.nextLine();
+				Sommet sommetDepart = Reseau.getSommet(depart);
+				if(sommetDepart == null) {
+					System.err.println("Station Introuvable !! ");
+					System.exit(0);
+				}
+				System.out.println("Entrer Votre Station d'arrivée :");
+				String arrivee = scan.nextLine();
+				Sommet sommetArrivee = Reseau.getSommet(arrivee);
+				if(sommetArrivee == null) {
+					System.err.println("Station Introuvable !! ");
+					System.exit(0);
+				}
+				System.out.println("Entrer Votre Horaire de Depart (sous la forme hhmm) :");
+				String heure = scan.nextLine();
+				Heure heureDepart = new Heure(heure);
+				ArrayList<ArrayList<Arc>> chemins = Trajet.setAllChemins(sommetDepart, sommetArrivee, new ArrayList<String>(), heureDepart);
+				ArrayList<Arc> plusCourt = Trajet.plusCourtChemin(chemins);
+				System.out.println("Chemin à Suivre : ");
+				for(Arc arc: plusCourt) {
+					System.out.println(arc);
+				}
 			}
-			System.out.println(Trajet.plusCourtChemin(chemins));
-	*/  	
+			if(choix != 1 && choix != 2) {
+				System.out.println("Go Fuck yourself madafaka");
+				System.exit(0);
+			}
+			
+			System.out.println("Bonne Journée :) ");
+			scan.close();
 			} catch (Exception e) {
 	    	 e.printStackTrace();
 	     }

@@ -67,7 +67,7 @@ public class LectureXML {
             Validator validator = schema.newValidator();
             validator.validate(new StreamSource(new File(this.path)));
             //Verification réussie
-            System.out.println("Fichier " + path.replace("src/resource/", "") + " valide");
+          //  System.out.println("Fichier " + path.replace("src/resource/", "") + " valide");
 			//Specification du Traitement pour la lecture/Stockage des données xml
             this.setDefaultHandler(exploitant);
 			
