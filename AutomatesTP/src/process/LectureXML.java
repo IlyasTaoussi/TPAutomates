@@ -2,19 +2,29 @@ package process;
 
 
 
+import java.io.File;
 import java.util.List;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 
 import org.xml.sax.Attributes;
+import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
+
 
 
 public class LectureXML {
 	private String path;
 	private DefaultHandler handlerXML;
+	private File schemaFile ;
 	static StringBuffer buffer;
 	static Sommet sommetDepart;
 	static Sommet sommetArrivee;
@@ -27,11 +37,21 @@ public class LectureXML {
 	static String[] ListStation;
 	public LectureXML(String path, Transport exploitant) {
 		super();
-	/*	this.path = path;
-		this.setDefaultHandler(exploitant);
-	*/	try {
+		try {
 			
 			this.path = path;
+			if(path.equals("src/resource/train.xml")) {
+				schemaFile = new File("src/resource/train.xsd");
+			}
+			else if(path.equals("src/resource/tram.xml")){
+				schemaFile = new File("src/resource/tram.xsd");
+			}
+			SchemaFactory factory = 
+                    SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            Schema schema = factory.newSchema(schemaFile);
+            Validator validator = schema.newValidator();
+            validator.validate(new StreamSource(new File(path)));
+			
 			this.setDefaultHandler(exploitant);
 			
 	        SAXParserFactory spfactory = SAXParserFactory.newInstance();
@@ -157,34 +177,7 @@ public class LectureXML {
 		        public void characters(char ch[], int start, int length) throws SAXException {
 		        	String lecture = new String(ch,start,length);
 		        	if(buffer != null) buffer.append(lecture); 
-		        	/*
-		        	if (startStation) {
-		             System.out.println("Start Station : " + 
-		                    buffer.toString());
-		             startStation = false;
-		           	}
-		   
-		           	if (arrivalStation) {
-		             System.out.println("Arrivée : " +
-		                     buffer.toString());
-		             arrivalStation = false;
-		           	}
-		 
-		           	if (startHour) {
-		             System.out.println("heure Depart : " + 
-		                     buffer.toString());
-		             startHour = false;
-		           	}
-		 
-		           	if (arrivalHour) {
-		             System.out.println("heures Arrivée : " + 
-		                     buffer.toString());
-		             arrivalHour = false;
-		           	}
-		           	*/
-		        	 
-		    		 
-		        		
+		        
 		        }
 		 
 		    };

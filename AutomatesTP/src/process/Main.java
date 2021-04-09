@@ -14,14 +14,22 @@ public class Main {
 			LectureTXT metro = new LectureTXT("src/resource/metro.txt", Transport.METRO);
 		
 			Sommet sommetDepart = Reseau.getSommet("Limo");
-			Sommet sommetArrive = Reseau.getSommet("Gare");
-			Heure heureDepart = new Heure("0759");
+			Sommet sommetArrive = Reseau.getSommet("Avlon");
+			Heure heureDepart = new Heure("0810");
 			ArrayList<ArrayList<Arc>> chemins = Trajet.setAllChemins(sommetDepart, sommetArrive, new ArrayList<String>(),  heureDepart);
-			
+			System.out.println(chemins);
 			System.out.println(chemins.size());
-			for(int i = chemins.get(0).size()-1; i>=0; i--) {
-				System.out.println(chemins.get(0).get(i));
+			for(int j = 0; j<chemins.size(); j++) {
+				for(int i = chemins.get(j).size()-1; i>=0; i--) {
+					System.out.println(chemins.get(j).get(i));}
+				System.err.println("  ");
 			}
+		/*	for(Arc a : Reseau.getListArc()) {
+				if(a.getStationDepart().equals(Reseau.getSommet("Syen")) && a.getStationArrivee().equals(Reseau.getSommet("Gare"))) {
+					System.out.println(a);
+				}
+			}
+		*/
 		//	ArrayList<Arc> closest = Trajet.getAllClosestPaths(sommetDepart, heureDepart);
 		//	System.out.println(closest);
 	/*		for(Sommet s : Reseau.getListSommet()) {
@@ -31,5 +39,5 @@ public class Main {
 	    	 e.printStackTrace();
 	     }
 	}
-
 }
+

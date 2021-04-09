@@ -14,11 +14,12 @@ public class Trajet {
 	public static Arc getClosestPath(Sommet stationDepart, Sommet stationArrivee, Heure heureDepart) {
 		Arc plusCourt = null;
 		for(Arc a : Reseau.getListArc()) {
-			if(a.getStationDepart().equals(stationDepart) && a.getStationArrivee().equals(stationArrivee)) {
+			if(a.getStationDepart().equals(stationDepart) && a.getStationArrivee().equals(stationArrivee) && (a.getHoraire().getHeureDepart().plusGrandQue(heureDepart)) || a.getHoraire().getHeureDepart().equals(heureDepart)) {
 				plusCourt = a;
+				break;
 			}
 		}
-		
+		if(plusCourt != null) {
 		for(Arc a : Reseau.getListArc()) {
 			if(a.getStationDepart().equals(plusCourt.getStationDepart()) && a.getStationArrivee().equals(plusCourt.getStationArrivee())) {
 				if((!a.getHoraire().getHeureDepart().plusGrandQue(plusCourt.getHoraire().getHeureDepart())) && (a.getHoraire().getHeureDepart().plusGrandQue(heureDepart))) {
@@ -26,7 +27,7 @@ public class Trajet {
 				}
 			}
 		}
-	
+		}
 		return plusCourt;
 	}
 	
@@ -41,7 +42,8 @@ public class Trajet {
 			}
 		}
 		for(Sommet s : reachable) {
-			closest.add(getClosestPath(stationDepart, s, heureDepart));
+			Arc close = getClosestPath(stationDepart, s, heureDepart);
+			if(close != null) closest.add(close);
 		}
 		return closest;
 	}
@@ -55,7 +57,6 @@ public class Trajet {
 		}
 		
 		ArrayList<Arc> closest = getAllClosestPaths(stationDepart, heureDepart);
-		
 		for(Arc a : closest) {
 		
 			if(!visited.contains(stationDepart.getNomStation())) {

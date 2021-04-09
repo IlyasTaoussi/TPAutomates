@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+          <!-- XML Schema Generated from XML Document on Fri Apr 09 2021 11:17:12 GMT+0200 (Central European Summer Time) -->
+          <!-- with XmlGrid.net Free Online Service http://xmlgrid.net -->
+       <xs:element name="train">
+              <xs:complexType>
+                     <xs:sequence>
+                            <xs:element name="line" maxOccurs="unbounded">
+                                   <xs:complexType mixed="true">
+                                          <xs:sequence>
+                                                 <xs:element name="junction" maxOccurs="unbounded">
+                                                        <xs:complexType>
+                                                               <xs:sequence>
+                                                                      <xs:element name="start-station" type="xs:string"></xs:element>
+                                                                      <xs:element name="arrival-station" type="xs:string"></xs:element>
+                                                                      <xs:element name="start-hour" type="xs:int"></xs:element>
+                                                                      <xs:element name="arrival-hour" type="xs:int"></xs:element>
+                                                                  </xs:sequence>
+                                                           </xs:complexType>
+                                                    </xs:element>
+                                             </xs:sequence>
+                                      </xs:complexType>
+                               </xs:element>
+                        </xs:sequence>
+                 </xs:complexType>
+          </xs:element>
+   </xs:schema>

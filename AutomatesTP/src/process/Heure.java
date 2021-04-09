@@ -41,7 +41,7 @@ public class Heure {
 
 
 	public void setHorloge() {
-		if(this.minutes > 60) {
+		if(this.minutes >= 60) {
 			this.minutes = this.minutes - 60;
 			this.heures++;
 		}
