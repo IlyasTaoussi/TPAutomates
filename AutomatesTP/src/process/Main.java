@@ -1,6 +1,5 @@
 package process;
 
-import java.util.ArrayList;
 
 public class Main {
 
@@ -16,16 +15,13 @@ public class Main {
 			Sommet sommetDepart = Reseau.getSommet("Syen");
 			Sommet sommetArrive = Reseau.getSommet("Gare");
 			Heure heureDepart = new Heure("0800");
-	//		ArrayList<ArrayList<Arc>> chemins = Trajet.setAllChemins(sommetDepart, sommetArrive, new ArrayList<String>(),  heureDepart);
-	//		System.out.println(chemins);
-	//		System.out.println(chemins.size());
-	/*		for(int j = 0; j<chemins.size(); j++) {
-				for(int i = chemins.get(j).size()-1; i>=0; i--) {
-					System.out.println(chemins.get(j).get(i));}
-				System.err.println("  ");
+	
+			for(Arc s : Reseau.getListArc()) {
+				System.out.println(s);
 			}
-			System.out.println(Trajet.plusCourtChemin(chemins));
-	*/  	
+			for(Sommet a : Reseau.getListSommet()) {
+				System.out.println(a);
+			}
 			} catch (Exception e) {
 	    	 e.printStackTrace();
 	     }

@@ -1,5 +1,10 @@
 package process;
 
+/*
+ * @author Ilyas Taoussi , Lilian Tantot
+ * @version 1.0 
+ * 
+ */
 
 
 import java.io.File;
@@ -14,18 +19,22 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
 import org.xml.sax.Attributes;
-import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 
 
 public class LectureXML {
-	private String path;
-	private DefaultHandler handlerXML;
-	private File schemaFile ;
-	static StringBuffer buffer;
+	/*
+	 * Attributs de la classe
+	 */
+	private String path; // chemin vers le fichier xml
+	private DefaultHandler handlerXML; // Traitement du fichier xml 
+	private File schemaFile ; // fichier xsd pour la verification et validation du fichier xml à traiter
+	/*
+	 * variables globales à utiliser dans toute la classe
+	 */
+	static StringBuffer buffer; 
 	static Sommet sommetDepart;
 	static Sommet sommetArrivee;
 	static Arc arc;
@@ -35,12 +44,18 @@ public class LectureXML {
 	static int line ;
 	static List<Arc> listArcTram;
 	static String[] ListStation;
+	
+	/*
+	 * Constructeur Prenant le path , le Transport , 
+	 * et fait le set du traitement convenable pour le fichier xml (Validation , Lecture et Stockage)
+	 */
 	public LectureXML(String path, Transport exploitant) {
 		super();
 		try {
 			
 			this.path = path;
-			if(path.equals("src/resource/train.xml")) {
+			//Setting du fichier xsd (xml scheme)
+ 			if(path.equals("src/resource/train.xml")) {
 				schemaFile = new File("src/XmlSchema/train.xsd");
 			}
 			else if(path.equals("src/resource/tram.xml")){
@@ -50,15 +65,18 @@ public class LectureXML {
                     SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             Schema schema = factory.newSchema(schemaFile);
             Validator validator = schema.newValidator();
-            validator.validate(new StreamSource(new File(path)));
-			System.out.println("Fichier " + path.replace("src/resource/", "") + " valide");
-			this.setDefaultHandler(exploitant);
+            validator.validate(new StreamSource(new File(this.path)));
+            //Verification réussie
+            System.out.println("Fichier " + path.replace("src/resource/", "") + " valide");
+			//Specification du Traitement pour la lecture/Stockage des données xml
+            this.setDefaultHandler(exploitant);
 			
 	        SAXParserFactory spfactory = SAXParserFactory.newInstance();
 	        SAXParser saxParser = spfactory.newSAXParser();
 	        
+	        //Debut du Traitement
 	        saxParser.parse(path, handlerXML);
-	 
+	        //si pas d'exceptions : lecture/Stockage Reussi 
 	     } catch (Exception e) {
 	    	 System.err.println("Probleme de Lecture ou Parsing !! Voir le StackTrace pour la source du probléme :");
 	    	 e.printStackTrace();
@@ -66,23 +84,10 @@ public class LectureXML {
 	     }
 	}
 	
-	public void lectureTram() {
-		
-		try {
-	        SAXParserFactory spfactory = SAXParserFactory.newInstance();
-	        SAXParser saxParser = spfactory.newSAXParser();
-	        
-	        saxParser.parse(path, handlerXML);
-	 
-	     } catch (Exception e) {
-	       e.printStackTrace();
-	     }
-	   }
-	
-	
+	//Definir le Traitement selon le transport Specifié 
 	public void setDefaultHandler(Transport exploitant) {
 		
-		
+		//Traitement du fichier train.xml
 		if(exploitant.equals(Transport.TRAIN)) {
 			handlerXML = new DefaultHandler(){
 				
@@ -130,7 +135,7 @@ public class LectureXML {
 		        /*cette méthode est invoquée à chaque fois que parser rencontre
 		          une balise fermante '>' */
 		        public void endElement(String uri, String localName,String qName) throws SAXException {
-		        	
+		        		//Stockage du nouvel Arc
 			           if (qName.equalsIgnoreCase("junction")) {
 			        	   arc = new Arc(sommetDepart, sommetArrivee,horaire, Transport.TRAIN);
 			        	   
@@ -146,14 +151,14 @@ public class LectureXML {
 			        	   arc = null;
 			        	   junction = false;
 			           }
-			 
+			           //Sommet Depart
 			           if (qName.equalsIgnoreCase("start-station")) {
 			        	   sommetDepart = new Sommet(buffer.toString());
 			        	   
 			        	   buffer = null;
 			        	   startStation = false;
 			           }
-			 
+			           //Sommet Arrivee
 			           if (qName.equalsIgnoreCase("arrival-station")) {
 			        	   sommetArrivee = new Sommet(buffer.toString());
 			        	   
@@ -184,17 +189,19 @@ public class LectureXML {
 		 
 		    };
 		}
-		// si on trouve tram
+		// Traitement du fichier tram.xml
 		else if(exploitant.equals(Transport.TRAM)) {
 			handlerXML = new DefaultHandler(){
-				 
-		        boolean stations = false;
+				
+				
+		        @SuppressWarnings("unused")
+				boolean stations = false;
 		        boolean ligne = false;
-		        boolean heuresPassage = false;
+		        @SuppressWarnings("unused")
+				boolean heuresPassage = false;
 		        
 		 
-		        /*cette méthode est invoquée à chaque fois que parser rencontre
-		          une balise ouvrante '<' */
+		        /*Detection d'une balise ouvrante '<' */
 		        public void startElement(String uri, String localName,
 		               String qName,Attributes attributes) throws SAXException{
 		        	buffer = new StringBuffer();
@@ -214,9 +221,9 @@ public class LectureXML {
 		           
 		        }
 		 
-		        /*cette méthode est invoquée à chaque fois que parser rencontre
-		          une balise fermante '>' */
+		        /*Detection d'une balise fermante '>' */
 		        public void endElement(String uri, String localName,String qName) throws SAXException {
+		        	//Stockage de la liste de stations (à condition que c'est une balise incluse dans la balise <ligne>
 		        	if (qName.equalsIgnoreCase("stations")) {
 		        		if(line != 0) {
 		        			ListStation = null;
@@ -229,7 +236,8 @@ public class LectureXML {
 		        	if (qName.equalsIgnoreCase("ligne")) {
 		        		ligne = false;
 		        	}
-			 
+		        	
+		        	//Stockage des nouveaux arcs
 		        	if (qName.equalsIgnoreCase("heures-passage")) {
 		        		String[] ListHeuresPassage = buffer.toString().split(" ");
 		        		int firstTemp =0;
@@ -246,6 +254,7 @@ public class LectureXML {
 		        				Reseau.addSommet(sommetDepart);
 		        				Reseau.addSommet(sommetArrivee);
 		        			}
+		        			//stockage du dernier arc
 		        			else {
 		        				sommetDepart = new Sommet(ListStation[i]);
 	        					sommetArrivee = new Sommet(ListStation[1]);
@@ -257,7 +266,7 @@ public class LectureXML {
 		        	}
 		        }
 
-		        /*imprime les données stockées entre '<' et '>' */
+		        /*Detection des données stockées entre '<' et '>' */
 		        public void characters(char ch[], int start, int length) throws SAXException {
 		        	 
 		        	

@@ -1,12 +1,20 @@
 package process;
-
+/*
+ * @author Ilyas Taoussi , Lilian Tantot
+ * @version 1.0 
+ * 
+ */
 
 public class Arc implements Cloneable{
-	private Sommet stationDepart;
-	private Sommet stationArrivee;
-	private Horaire horaire;
-	private Transport transport;
 	
+	private Sommet stationDepart; //Station Depart
+	private Sommet stationArrivee; // Station Arrivee
+	private Horaire horaire; // Horaire du trajet (arc)
+	private Transport transport; // Exploitant du trajet
+	
+	/*
+	 * Constructeurs (Adaptés selon l'utilisation dans le traitement
+	 */
 	public Arc() {
 		super();
 	}
@@ -32,6 +40,10 @@ public class Arc implements Cloneable{
 		this.stationArrivee = stationArrivee;
 		this.horaire = new Horaire(new Heure(), new Heure());
 	}
+	
+	/*
+	 * Getters & Setters
+	 */
 	
 	public Sommet getStationDepart() {
 		return stationDepart;
@@ -78,7 +90,10 @@ public class Arc implements Cloneable{
 		result = prime * result + ((transport == null) ? 0 : transport.hashCode());
 		return result;
 	}
-
+	
+	/*
+	 * Methode Override Equals à specifier 
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -107,7 +122,10 @@ public class Arc implements Cloneable{
 			return false;
 		return true;
 	}
-
+	
+	/*
+	 * Clonage
+	 */
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		// TODO Auto-generated method stub
